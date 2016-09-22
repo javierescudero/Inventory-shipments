@@ -4,29 +4,41 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Inventory Shipments</title>
+	<script src="jquery-1.12.4.min.js"></script>
 </head>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#codes').focus();
+		//var t = c.trim();
+		var str = '';
+		var array = [];
+		$('#form').submit(function() {
+			var c = $('#codes').val().concat(',');
+			var t = c.trim();
+			
+			if (t.charAt(0) == 'P') {
+				str = str + t;
+				alert("NP = " + t);
+				$('#codes').val('');
+			} else if (t.charAt(0) == 'Q') {
+				str = str + t;
+				alert("Q = " + t);
+				$('#codes').val('');
+			} else if (t.charAt(0) == 'W') {
+				str = str + t;
+				alert("WO = " + t);
+				$('#codes').val('');
+
+				//array[0] = str;
+				alert("strSplit = " + str.split(','));
+			}
+			return false;
+		});
+	});
+</script>
 <body>
-	<?php
-	if (isset($_POST["iniciar"])) {
-		$number_part = array($_POST["part_number"]);
-		$quantity = array($_POST["quantity"]);
-		$wo = array($_POST["wo"]);
-
-		$lenght = sizeof($number_part);
-
-		/*for($i=0;$i<=$lenght;$i++){
-		    echo $array[$i]
-		}*/
-
-		echo "".$number_part[0];
-	}
-	?>
-	<form action="" method="post">
-		<input type="number" id="" name="" value="Nuevo Pallet" min="0"><br><br>
-		<label for="part-number">Part Number</label><input type="text" id="part_number" name="part_number"><br>
-		<label for="quantity">Quantity</label><input type="text" id="quantity" name="quantity"><br>
-		<label for="wo">W.O.</label><input type="text" id="wo" name="wo"><br>
-		<input type="submit" id="" name="iniciar" value="Guardar">
+	<form id="form">
+		<label for="codes">Codes</label><input type="text" id="codes" name="codes" style="width:15%"><br><br>
 	</form>
 </body>
 </html>
