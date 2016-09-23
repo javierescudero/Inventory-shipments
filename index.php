@@ -8,6 +8,7 @@
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
+
 		$('#codes').focus();
 
 		var array_pN = new Array();
@@ -32,7 +33,7 @@
 			} else if (c.charAt(0) == 'W') {
 				var WO = c.substring(1);
 				array_WO.push(WO);
-				//$("#table tr").remove();
+
 				if (array_WO.length >= 1) {
 
 					alert("Boxes: " + parseInt(boxes));
