@@ -9,28 +9,45 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#codes').focus();
-		//var t = c.trim();
-		var str = '';
-		var array = [];
+
+		var array_pN = new Array();
+		var array_Q = new Array();
+		var array_WO = new Array();
+
+		var boxes = 1;
+
 		$('#form').submit(function() {
-			var c = $('#codes').val().concat(',');
-			var t = c.trim();
+			var c = $('#codes').val();
 			
-			if (t.charAt(0) == 'P') {
-				str = str + t;
-				alert("NP = " + t);
-				$('#codes').val('');
-			} else if (t.charAt(0) == 'Q') {
-				str = str + t;
-				alert("Q = " + t);
-				$('#codes').val('');
-			} else if (t.charAt(0) == 'W') {
-				str = str + t;
-				alert("WO = " + t);
+			if (c.charAt(0) == 'P') {
+				//array_pN[0] = c.substring(1);
+				var pN = c.substring(1);
+				array_pN.push(pN);
+				/*for (var i = 0; i < array_pN.length; i++) {
+					alert("Part Number --> " + array_pN[i]);
+				}*/
+				//alert("Part Number --> " + array_pN[0]);
 				$('#codes').val('');
 
-				//array[0] = str;
-				alert("strSplit = " + str.split(','));
+			} else if (c.charAt(0) == 'Q') {
+				//array_Q[0] = c.substring(1);
+				var Q = c.substring(1);
+				array_Q.push(Q);
+				//alert("Quantity --> " + array_Q[0]);
+				$('#codes').val('');
+
+			} else if (c.charAt(0) == 'W') {
+				//array_WO[0] = c.substring(1);
+				var WO = c.substring(1);
+				array_WO.push(WO);
+				if (array_WO.length < 1) {
+					alert("Boxes: " + parseInt(boxes));
+				} else {
+					alert("Boxes: " + parseInt(boxes+1));
+				}
+				//alert("WO --> " + array_WO[0]);
+				$('#codes').val('');
+
 			}
 			return false;
 		});
