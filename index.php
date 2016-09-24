@@ -19,56 +19,68 @@
 
 		$('#form').submit(function() {
 			var c = $('#codes').val();
-			
-			if (c.charAt(0) == 'P') {
-				var pN = c.substring(1);
-				array_pN.push(pN);
-				$('#codes').val('');
 
-			} else if (c.charAt(0) == 'Q') {
-				var Q = c.substring(1);
-				array_Q.push(Q);
-				$('#codes').val('');
+				if (c.charAt(0) == 'P') {
+					var pN = c.substring(1);
+					array_pN.push(pN);
+					$('#codes').val('');
 
-			} else if (c.charAt(0) == 'W') {
-				var WO = c.substring(1);
-				array_WO.push(WO);
+				} else if (c.charAt(0) == 'Q') {
+					var Q = c.substring(1);
+					array_Q.push(Q);
+					$('#codes').val('');
 
-				if (array_WO.length >= 1) {
+				} else if (c.charAt(0) == 'W') {
+					var WO = c.substring(1);
+					array_WO.push(WO);
 
-					alert("Boxes: " + parseInt(boxes));
+					if (array_WO.length >= 1) {
+						alert("Boxes: " + parseInt(boxes));
+						boxes++;
+					}
+					$('#codes').val('');
 					for (var i = 0; i < array_pN.length; i++) {
-						$("#part_number").append('<tr><td>'+array_pN[i]+'</td></tr>');
+						//$("#body").remove();
+						$("#part_number").append('<tr><td>'+array_pN[i]+'</td><td>');
 						$("#quantity").append('<tr><td>'+array_Q[i]+'</td></tr>');
 						$("#wo").append('<tr><td>'+array_WO[i]+'</td></tr>');
 					};
-					boxes++;
 				}
-				$('#codes').val('');
-			}
+
 			return false;
 		});
+
+		$("#saveData").click(function (e) {
+		    window.open('data:application/vnd.ms-excel,' + $('#divData').html());
+		    e.preventDefault();
+		});
+
 	});
 </script>
 <body>
 	<form id="form">
 		<label for="codes">Codes</label><input type="text" id="codes" name="codes" style="width:10%"><br><br>
-		<table id="table" cellpadding="3" cellspacing="3" border="1">
-			<thead>
-				<tr>
-					<th>Part Number</th>
-					<th>Quantity</th>
-					<th>WO</th>
-				</tr>
-			</thead>
-			<tbody id="body">
-				<tr>
-					<td id="part_number"></td>
-					<td id="quantity"></td>
-					<td id="wo"></td>
-				</tr>
-			</tbody>
-		</table>
+		<input type="button" value="Save and Export" id="saveData"><br><br>
+		
+		<div id="divData">
+			<table id="table" cellpadding="3" cellspacing="3" border="1">
+				<thead>
+					<tr>
+						<th>Part Number</th>
+						<th>Quantity</th>
+						<th>WO</th>
+					</tr>
+				</thead>
+				<tbody id="body">
+					<tr>
+						<td id="part_number"></td>
+						<td id="quantity"></td>
+						<td id="wo"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
 	</form>
 </body>
 </html>
