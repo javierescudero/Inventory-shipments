@@ -17,16 +17,23 @@
 
 		$('#codes').focus();
 
+		var pal;
 		var array_pN = new Array();
 		var array_Q = new Array();
 		var array_WO = new Array();
 
-		var boxes = 1;
+		var boxes = 1, pallets = 1;
 
 		$('#form').submit(function() {
 			var c = $('#codes').val();
 
-				if (c.charAt(0) == 'P') {
+				if (c.charAt(0) == 'T') {
+					pal = c.substring(1);
+					//array_P.push(P);
+					$('#codes').val('');
+					alert("Pallet: " + parseInt(pallets));
+					pallets++;
+				} else if (c.charAt(0) == 'P') {
 					var pN = c.substring(1);
 					array_pN.push(pN);
 					$('#codes').val('');
@@ -47,7 +54,7 @@
 					$('#codes').val('');
 					for (var i = 0; i < array_pN.length; i++) {
 						//$("#body").remove();
-						$("#body").append('<tr><td>'+array_pN[i]+'</td>'+'<td>'+array_Q[i]+'</td>'+'<td>'+array_WO[i]+'</td></tr>');
+						$("#body").append('<tr><td>'+'<td>'+array_pN[i]+'</td>'+'<td>'+array_Q[i]+'</td>'+'<td>'+array_WO[i]+'</td></tr>');
 						/*$("#part_number").append('<tr><td>'+array_pN[i]+'</td></tr>');
 						$("#quantity").append('<tr><td>'+array_Q[i]+'</td></tr>');
 						$("#wo").append('<tr><td>'+array_WO[i]+'</td></tr>');*/
