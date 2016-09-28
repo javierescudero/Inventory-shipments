@@ -5,6 +5,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Inventory Shipments</title>
 	<script src="jquery-1.12.4.min.js"></script>
+	<script language="javascript">
+		$(document).ready(function() {
+		     $("#saveData").click(function(event) {
+			     $("#datos_a_enviar").val( $("<div>").append( $("#table").eq(0).clone()).html());
+			     $("#form").submit();
+			});
+		});
+	</script>
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -58,9 +66,10 @@
 	});
 </script>
 <body>
-	<form id="form">
+	<form id="form" method="post" action="export_excel.php">
 		<label for="codes">Codes</label><input type="text" id="codes" name="codes" style="width:10%"><br><br>
 		<input type="button" value="Save and Export" id="saveData"><br><br>
+		<input type="hidden" id="datos_a_enviar" name="datos_a_enviar" />
 		
 		<div id="divData">
 			<table id="table" cellpadding="3" cellspacing="3" border="1">
