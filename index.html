@@ -17,7 +17,7 @@
 
 		$('#codes').focus();
 
-		var pal;
+		var quant = 0;
 		var array_pN = new Array();
 		var array_Q = new Array();
 		var array_WO = new Array();
@@ -28,12 +28,11 @@
 			var c = $('#codes').val();
 
 				if (c.charAt(0) == 'T') {
-					pal = c.substring(1);
-					//array_P.push(P);
 					$('#codes').val('');
 					alert("Pallet: " + parseInt(pallets));
 					pallets++;
-				} else if (c.charAt(0) == 'P') {
+				}
+				if (c.charAt(0) == 'P') {
 					var pN = c.substring(1);
 					array_pN.push(pN);
 					$('#codes').val('');
@@ -53,14 +52,27 @@
 					}
 					$('#codes').val('');
 					for (var i = 0; i < array_pN.length; i++) {
+						var pN_ant;
+						
+						if (array_pN.length <= 1) {
+							pN_ant = array_pN[i];
+							alert("Primer pN_ant: " + pN_ant);
+						} else {
+							pN_ant = array_pN[i-1];
+							alert("Mas de un pN_ant: " + pN_ant);
+						}
+						if (pN_ant == pN) {
+							quant = quant + parseInt(array_Q[i]);
+						};
+						alert("Quantity: "+ quant +" of number part: "+ array_pN[i]);
+						
 						//$("#body").remove();
-						$("#body").append('<tr><td>'+'<td>'+array_pN[i]+'</td>'+'<td>'+array_Q[i]+'</td>'+'<td>'+array_WO[i]+'</td></tr>');
+						$("#body").append('<tr><td>'+array_pN[i]+'</td><td>'+array_Q[i]+'</td><td>'+array_WO[i]+'</td></tr>');
 						/*$("#part_number").append('<tr><td>'+array_pN[i]+'</td></tr>');
 						$("#quantity").append('<tr><td>'+array_Q[i]+'</td></tr>');
 						$("#wo").append('<tr><td>'+array_WO[i]+'</td></tr>');*/
 					};
 				}
-
 			return false;
 		});
 
