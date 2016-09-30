@@ -17,14 +17,12 @@
 
 		$('#codes').focus();
 
-		var quant = 0;
 		var array_pallet = new Array();
-		var array_partN = new Array();
-		var array_quantity = new Array();
+		var array_Q = new Array();
+		var array_pN = new Array();
 		var array_WO = new Array();
 
-		var array_data = new Array(array_pallet, array_partN, array_quantity);
-
+		var x=0, y=0;
 		var boxes = 1, pallets = 1;
 
 		$('#form').submit(function() {
@@ -34,9 +32,9 @@
 					var pallet = c.substring(1);
 					$('#codes').val('');
 					array_pallet.push(pallet);
-					alert("Pallet: " + parseInt(pallets));
-					pallets++;
+					//alert("Pallet: " + parseInt(pallets));
 				}
+				y++;
 				if (c.charAt(0) == 'P') {
 					var pN = c.substring(1);
 					array_pN.push(pN);
@@ -48,35 +46,19 @@
 					$('#codes').val('');
 
 				} else if (c.charAt(0) == 'W') {
-					//var WO = c.substring(1);
+					var WO = c.substring(1);
 					array_WO.push(WO);
 
 					if (array_WO.length >= 1) {
 						alert("Boxes: " + parseInt(boxes));
-						boxes++;
+						
 					}
 					$('#codes').val('');
-					/*for (var i = 0; i < array_pN.length; i++) {
-						var pN_ant;
-						
-						if (array_pN.length <= 1) {
-							pN_ant = array_pN[i];
-							alert("Primer pN_ant: " + pN_ant);
-						} else {
-							pN_ant = array_pN[i-1];
-							alert("Mas de un pN_ant: " + pN_ant);
-						}
-						if (pN_ant == pN) {
-							quant = quant + parseInt(array_Q[i]);
-						};
-						alert("Quantity: "+ quant +" of number part: "+ array_pN[i]);
-						
-						//$("#body").remove();
-						$("#body").append('<tr><td>'+array_pN[i]+'</td><td>'+array_Q[i]+'</td>''</tr>');
-						/*$("#part_number").append('<tr><td>'+array_pN[i]+'</td></tr>');
-						$("#quantity").append('<tr><td>'+array_Q[i]+'</td></tr>');
-						$("#wo").append('<tr><td>'+array_WO[i]+'</td></tr>');
-					};*/
+
+					$("#body").append('<tr><td>'+array_pallet[y]+'</td><td>'+array_pN[x]+'</td><td>'+array_Q[x]+'</td><td>'+array_WO[x]+'</td><td>'+boxes+'</td><td>'+pallets+'</td></tr>');
+					boxes++;
+					pallets++;
+					x++;
 				}
 			return false;
 		});
@@ -96,9 +78,12 @@
 		<table id="data" cellpadding="1" cellspacing="1" border="1">
 			<thead>
 				<tr>
+					<th>Pallet Number</th>
 					<th>Part Number</th>
 					<th>Quantity</th>
-					<th># Pallets</th>
+					<th>WO</th>
+					<th>Boxes</th>
+					<th>Pallets</th>
 				</tr>
 			</thead>
 			<tbody id="body">
