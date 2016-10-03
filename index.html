@@ -22,8 +22,9 @@
 		var array_pN = new Array();
 		var array_WO = new Array();
 
-		var x=0;
-		var y = 0;
+		var x = 0;
+		var pall = 0;
+		var partNumb = 0;
 		var boxes = 1, pallets = 1;
 
 		$('#form').submit(function() {
@@ -32,26 +33,46 @@
 				if (c.charAt(0) == 'T') {
 					var pallet = c.substring(1);
 					$('#codes').val('');
-					if (array_pallet[y] == null) {
+					if (array_pallet[pall] == null) {
 						array_pallet.push(pallet);
-						alert("Se agrego primer elemento: "+ pallet);
+						//alert("Se agrego primer elemento: "+ pallet);
 					} else {
-						if (pallet == array_pallet[y]) {
-							alert("pallet_ant: " + pallet_ant);
+						if (pallet == array_pallet[pall]) {
+							//alert("pallet_ant: " + pallet_ant);
 						} else {
 							array_pallet.push(pallet);
-							alert("pallet: " + pallet);
-							y++;
-							alert("Aumento y: "+ y);
-							
+							//alert("pallet: " + pallet);
+							pall++;
+							//alert("Aumento pall: "+ pall);
 						}
+						alert(array_pallet.length);
 					}
 				}
 				if (c.charAt(0) == 'P') {
+					var quantity;
 					var pN = c.substring(1);
-					array_pN.push(pN);
 					$('#codes').val('');
+					if (array_Q[partNumb] == null) {
+						array_pN.push(pN);
+						alert("Se agrego primer elemento: "+ pN);
+					} else {
+						if (pN == array_pN[partNumb]) {
+							alert("Numero de parte igual");
+							//quantity = array_Q[partNumb];
+						} else {
+							alert("Numero de parte nuevo");
+							for (var i = 0; i < array_pN.length; i++) {
+								if (pN == array_pN[x]) {
+									quantity = array_Q[x];
+								} else {
 
+								}
+							};
+							//partNumb++;
+							//array_pN.push(pN);
+							//alert("Quantity: " + quantity);
+						}
+					}
 				} else if (c.charAt(0) == 'Q') {
 					var Q = c.substring(1);
 					array_Q.push(Q);
