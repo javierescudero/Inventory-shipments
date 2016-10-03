@@ -22,7 +22,8 @@
 		var array_pN = new Array();
 		var array_WO = new Array();
 
-		var x=0, y=0;
+		var x=0;
+		var y = 0;
 		var boxes = 1, pallets = 1;
 
 		$('#form').submit(function() {
@@ -31,10 +32,21 @@
 				if (c.charAt(0) == 'T') {
 					var pallet = c.substring(1);
 					$('#codes').val('');
-					array_pallet.push(pallet);
-					//alert("Pallet: " + parseInt(pallets));
+					if (array_pallet[y] == null) {
+						array_pallet.push(pallet);
+						alert("Se agrego primer elemento: "+ pallet);
+					} else {
+						if (pallet == array_pallet[y]) {
+							alert("pallet_ant: " + pallet_ant);
+						} else {
+							array_pallet.push(pallet);
+							alert("pallet: " + pallet);
+							y++;
+							alert("Aumento y: "+ y);
+							
+						}
+					}
 				}
-				y++;
 				if (c.charAt(0) == 'P') {
 					var pN = c.substring(1);
 					array_pN.push(pN);
@@ -87,11 +99,6 @@
 				</tr>
 			</thead>
 			<tbody id="body">
-				<!--<tr>
-					<td id="part_number"></td>
-					<td id="quantity"></td>
-					<td id="wo"></td>
-				</tr>-->
 			</tbody>
 		</table>
 	</div>
