@@ -23,9 +23,11 @@
 		var array_WO = new Array();
 
 		var x = 0;
-		var pall = 0;
+		var pall = array_pallet.length;
 		var partNumb = 0;
-		var boxes = 1, pallets = 1;
+		var woN = 0;
+		var boxes = 1;
+		var boxesWO = 0;
 
 		$('#form').submit(function() {
 			var c = $('#codes').val();
@@ -35,44 +37,27 @@
 					$('#codes').val('');
 					if (array_pallet[pall] == null) {
 						array_pallet.push(pallet);
-						//alert("Se agrego primer elemento: "+ pallet);
 					} else {
-						if (pallet == array_pallet[pall]) {
-							//alert("pallet_ant: " + pallet_ant);
+						var index = array_pallet.indexOf(pallet);
+						if (index > -1) {
+							alert('This pallet number already exists\nTry with other pallet number');
+							//alert('Try with other pallet number');
+							return false;
 						} else {
 							array_pallet.push(pallet);
-							//alert("pallet: " + pallet);
 							pall++;
-							//alert("Aumento pall: "+ pall);
 						}
-						alert(array_pallet.length);
 					}
 				}
 				if (c.charAt(0) == 'P') {
 					var quantity;
 					var pN = c.substring(1);
 					$('#codes').val('');
-					if (array_Q[partNumb] == null) {
+					//if (array_pN[partNumb] == null) {
 						array_pN.push(pN);
-						alert("Se agrego primer elemento: "+ pN);
-					} else {
-						if (pN == array_pN[partNumb]) {
-							alert("Numero de parte igual");
-							//quantity = array_Q[partNumb];
-						} else {
-							alert("Numero de parte nuevo");
-							for (var i = 0; i < array_pN.length; i++) {
-								if (pN == array_pN[x]) {
-									quantity = array_Q[x];
-								} else {
-
-								}
-							};
-							//partNumb++;
-							//array_pN.push(pN);
-							//alert("Quantity: " + quantity);
-						}
-					}
+					//} else {
+						//array_pN.push(pN);
+					//}
 				} else if (c.charAt(0) == 'Q') {
 					var Q = c.substring(1);
 					array_Q.push(Q);
@@ -80,17 +65,23 @@
 
 				} else if (c.charAt(0) == 'W') {
 					var WO = c.substring(1);
-					array_WO.push(WO);
-
-					if (array_WO.length >= 1) {
-						alert("Boxes: " + parseInt(boxes));
-						
-					}
 					$('#codes').val('');
+					if (array_WO[woN] == null) {
+						array_WO.push(WO);
+						boxesWO = array_Q[0];
+					} else {						
+						for (var i = 0; i < array_WO.length; i++) {
+							if (WO == array_WO[i]) {
+								boxesWO = parseInt(boxesWO) +  parseInt(array_Q[i]);
+							} else {
+								boxesWO = parseInt(array_Q[i++]);
+							}	
+						};
+						array_WO.push(WO);
+					}
 
-					$("#body").append('<tr><td>'+array_pallet[y]+'</td><td>'+array_pN[x]+'</td><td>'+array_Q[x]+'</td><td>'+array_WO[x]+'</td><td>'+boxes+'</td><td>'+pallets+'</td></tr>');
+					$('#body').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_Q[x]+'</td><td>'+array_WO[x]+'</td><td>'+boxesWO+'</td><td>'+boxes+'</td><td>'+parseInt(pall+1)+'</td></tr>');
 					boxes++;
-					pallets++;
 					x++;
 				}
 			return false;
@@ -98,14 +89,16 @@
 
 		$('#saveData').click(function(){
 			$('#data').tableExport({type:'excel',escape:'false'});
+			//$('#body').remove();
 		});
 
 	});
 </script>
 <body>
-	<form id="form" >
-		<label for="codes">Codes</label><input type="text" id="codes" name="codes" style="width:10%"><br><br>
-		<input type="button" value="Save and Export" id="saveData"><br><br>
+	<form id="form">
+		<label for="scan">Scan: </label><input type="text" id="scan" name="scan" style="width:10%"><br><br>
+		<input type="button" value="Save and Export" id="saveData"><!--<input type="button" value="Delete Information" id="delete">--><br><br>
+		
 	</form>
 	<div id="divData">
 		<table id="data" cellpadding="1" cellspacing="1" border="1">
@@ -115,10 +108,12 @@
 					<th>Part Number</th>
 					<th>Quantity</th>
 					<th>WO</th>
-					<th>Boxes</th>
-					<th>Pallets</th>
+					<th>Pieces By WO</th>
+					<!--<th>Total Boxes By WO</th>-->
+					<th>Total Boxes</th>
+					<th>Total Pallets</th>
 				</tr>
-			</thead>
+			</thead><br>
 			<tbody id="body">
 			</tbody>
 		</table>
