@@ -27,6 +27,7 @@
 		var partNumb = 0;
 		var boxes = 1;
 		var piecesWO = 0;
+		var piecesPN = 0;
 
 		$('#form').submit(function() {
 			var c = $('#scan').val();
@@ -46,20 +47,28 @@
 							pall++;
 						}
 					}
-				}
-				if (c.charAt(0) == 'P') {
-					var quantity;
-					var pN = c.substring(1);
-					$('#scan').val('');
-					//if (array_pN[partNumb] == null) {
-						array_pN.push(pN);
-					//} else {
-						//array_pN.push(pN);
-					//}
-				} else if (c.charAt(0) == 'Q') {
+				} if (c.charAt(0) == 'Q') {
 					var Q = c.substring(1);
 					array_Q.push(Q);
 					$('#scan').val('');
+
+				}
+				else if (c.charAt(0) == 'P') {
+					var pN = c.substring(1);
+					$('#scan').val('');
+					if (array_pN[0] == null) {
+						array_pN.push(pN);
+						piecesPN = array_Q[0];
+					} else {
+						array_pN.push(pN);
+						piecesPN = 0;
+						for (var i = 0; i < array_pN.length; i++) {
+							if (pN == array_pN[i]) {
+								piecesPN = parseInt(piecesPN) + parseInt(array_Q[i]);
+							} else {
+							}
+						};
+					}
 
 				} else if (c.charAt(0) == 'W') {
 					var WO = c.substring(1);
@@ -77,8 +86,8 @@
 							}
 						};
 					}
-
-					$('#body').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_Q[x]+'</td><td>'+array_WO[x]+'</td><td>'+piecesWO+'</td><td>'+boxes+'</td><td>'+parseInt(pall+1)+'</td></tr>');
+					$('#body').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_Q[x]+'</td><td>'+array_WO[x]+'</td></tr>');
+					$('#bodyRes').append('<tr><td>'+piecesWO+'</td><td>'+piecesPN+'</td><td>'+boxes+'</td><td>'+parseInt(pall+1)+'</td></tr>');
 					boxes++;
 					x++;
 				}
@@ -86,8 +95,10 @@
 		});
 
 		$('#saveData').click(function(){
-			$('#data').tableExport({type:'excel',escape:'false'});
-			//$('#body').remove();
+			$('table #totalPall').tableExport({type:'excel',escape:'false'});
+		});
+		$('#delete').click(function(){
+			$('tbody').remove();
 		});
 
 	});
@@ -102,16 +113,38 @@
 		<table id="data" cellpadding="1" cellspacing="1" border="1">
 			<thead>
 				<tr>
-					<th>Pallet Number</th>
+					<th>Pallet</th>
 					<th>Part Number</th>
 					<th>Pieces Per Box</th>
-					<th>Number Of WO</th>
+					<th>WO</th>
+				</tr>
+			</thead><br>
+			<tbody id="body">
+			</tbody>
+		</table><br><br>
+		<table id="dataRes" cellpadding="1" cellspacing="1" border="1">
+			<thead>
+				<tr>
 					<th>Total Parts By WO</th>
+					<th>Total Parts By Part Number</th>
 					<th>Total Boxes</th>
 					<th>Total Pallets</th>
 				</tr>
 			</thead><br>
-			<tbody id="body">
+			<tbody id="bodyRes">
+			</tbody>
+		</table><br><br>
+		<table cellpadding="1" cellspacing="1" border="1">
+			<thead>
+				<tr>
+					<th>Pallets</th>
+					<th>No. Parte</th>
+					<th>Cajas</th>
+					<th>Cantidad por Caja</th>
+					<th>Cantidad Total</th>
+				</tr>
+			</thead><br>
+			<tbody>
 			</tbody>
 		</table>
 	</div>
