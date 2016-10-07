@@ -26,6 +26,7 @@
 		var pall = array_pallet.length;
 		var partNumb = 0;
 		var boxes = 1;
+		var boxesNP = 1;
 		var piecesWO = 0;
 		var piecesPN = 0;
 
@@ -47,8 +48,10 @@
 							pall++;
 						}
 					}
+					//alert('Pallets = ' + (pall+1));
 				} if (c.charAt(0) == 'Q') {
 					var Q = c.substring(1);
+					Q.replace(/0/,'');
 					array_Q.push(Q);
 					$('#scan').val('');
 
@@ -62,9 +65,11 @@
 					} else {
 						array_pN.push(pN);
 						piecesPN = 0;
+						boxesNP = 0;
 						for (var i = 0; i < array_pN.length; i++) {
 							if (pN == array_pN[i]) {
 								piecesPN = parseInt(piecesPN) + parseInt(array_Q[i]);
+								boxesNP++;
 							} else {
 							}
 						};
@@ -86,8 +91,15 @@
 							}
 						};
 					}
-					$('#body').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_Q[x]+'</td><td>'+array_WO[x]+'</td></tr>');
-					$('#bodyRes').append('<tr><td>'+piecesWO+'</td><td>'+piecesPN+'</td><td>'+boxes+'</td><td>'+parseInt(pall+1)+'</td></tr>');
+
+
+					/*$('#body').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_Q[x]+'</td><td>'+array_WO[x]+'</td><td>'+piecesWO+'</td><td>'+piecesPN+'</td><td>'+boxes+'</td><td>'+parseInt(pall+1)+'</td></tr>');*/
+
+					$('#format').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+boxesNP+'</td><td>'+parseInt(array_Q[x])+'</td><td>'+parseInt(piecesPN)+'</td></tr>');
+
+					document.getElementById("totalBoxes").innerHTML = boxes;
+					document.getElementById("totalPallets").innerHTML = parseInt(pall+1);
+
 					boxes++;
 					x++;
 				}
@@ -95,58 +107,64 @@
 		});
 
 		$('#saveData').click(function(){
-			$('table #totalPall').tableExport({type:'excel',escape:'false'});
+			$('table').tableExport({type:'excel',escape:'false'});
 		});
 		$('#delete').click(function(){
 			$('tbody').remove();
 		});
-
 	});
 </script>
 <body>
 	<form id="form">
-		<label for="scan">Scan: </label><input type="text" id="scan" name="scan" style="width:10%"><br><br>
+		<label for="scan">Scan: </label><input type="text" id="scan" name="scan" style="width:40%"><br><br>
 		<input type="button" value="Save and Export" id="saveData"><input type="button" value="Delete Information" id="delete"><br><br>
-		
 	</form>
 	<div id="divData">
-		<table id="data" cellpadding="1" cellspacing="1" border="1">
+		<!--<table id="data" cellpadding="1" cellspacing="1" border="1">
 			<thead>
 				<tr>
 					<th>Pallet</th>
 					<th>Part Number</th>
 					<th>Pieces Per Box</th>
 					<th>WO</th>
+					<th>T.P. By WO</th>
+					<th>T.P. By P.N.</th>
+					<th>T. Boxes</th>
+					<th>T. Pallets</th>
 				</tr>
 			</thead><br>
 			<tbody id="body">
 			</tbody>
-		</table><br><br>
-		<table id="dataRes" cellpadding="1" cellspacing="1" border="1">
+		</table><br>-->
+		
+		<table id="dataFormat" cellpadding="1" cellspacing="1" border="1">
 			<thead>
 				<tr>
-					<th>Total Parts By WO</th>
-					<th>Total Parts By Part Number</th>
-					<th>Total Boxes</th>
-					<th>Total Pallets</th>
+					<th><b>Pallets</b></th>
+					<th><b>No. Parte</b></th>
+					<th><b>Cajas</b></th>
+					<th><b>Cantidad por Caja</b></th>
+					<th><b>Cantidad Total</b></th>
 				</tr>
-			</thead><br>
-			<tbody id="bodyRes">
+			</thead>
+			<tbody id="format">
 			</tbody>
-		</table><br><br>
-		<table cellpadding="1" cellspacing="1" border="1">
+		</table><br>
+
+		<table id="total" cellpadding="1" cellspacing="1" border="1">
 			<thead>
 				<tr>
-					<th>Pallets</th>
-					<th>No. Parte</th>
-					<th>Cajas</th>
-					<th>Cantidad por Caja</th>
-					<th>Cantidad Total</th>
+					<th><b>Pallets en Total</b></th>
+					<th><b>Cajas en Total</b></th>
 				</tr>
-			</thead><br>
+			</thead>
 			<tbody>
+				<tr>
+					<td id="totalBoxes"></td>
+					<td id="totalPallets"></td>
+				</tr>
 			</tbody>
-		</table>
+		</table><br>
 	</div>
 </body>
 </html>
