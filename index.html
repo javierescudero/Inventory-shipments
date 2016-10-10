@@ -95,10 +95,31 @@
 
 					/*$('#body').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_Q[x]+'</td><td>'+array_WO[x]+'</td><td>'+piecesWO+'</td><td>'+piecesPN+'</td><td>'+boxes+'</td><td>'+parseInt(pall+1)+'</td></tr>');*/
 
-					$('#format').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+boxesNP+'</td><td>'+parseInt(array_Q[x])+'</td><td>'+parseInt(piecesPN)+'</td></tr>');
 
-					document.getElementById("totalBoxes").innerHTML = boxes;
-					document.getElementById("totalPallets").innerHTML = parseInt(pall+1);
+						for (var i = 0; i < array_pN.length; i++) {
+							//var add_tr = 1;
+							if (pN == array_pN[i]) {
+								alert('Entro al IF');
+								document.getElementById('td_pallets').innerHTML = array_pallet[pall];
+								document.getElementById('td_noParte').innerHTML = array_pN[x];
+								//document.getElementById('td_wo').innerHTML = array_WO[x];
+								document.getElementById('td_cajas').innerHTML = boxesNP;
+								document.getElementById('td_cantxcaja').innerHTML = parseInt(array_Q[x]);
+								document.getElementById('td_cantTotal').innerHTML = parseInt(piecesPN);
+							} else {
+								alert('Entro al ELSE');
+								$('#format').append('<tr id="tr'+i+'_format"><td id="td'+i+'_pallets">'+array_pallet[pall]+'</td><td id="td'+i+'_noParte">'+array_pN[x]+'</td><td id="td'+i+'_cajas">'+boxesNP+'</td><td id="td'+i+'_cantxcaja">'+parseInt(array_Q[x])+'</td><td id="td'+i+'_cantTotal">'+parseInt(piecesPN)+'</td></tr>');
+								//add_tr++;
+							}
+						};
+
+					/*$('#format').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_WO[x]+'</td><td>'+boxesNP+'</td><td>'+parseInt(array_Q[x])+'</td><td>'+parseInt(piecesPN)+'</td></tr>');*/
+
+					/*$('#format').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+boxesNP+'</td><td>'+parseInt(array_Q[x])+'</td><td>'+parseInt(piecesPN)+'</td></tr>');*/
+
+
+					document.getElementById('totalBoxes').innerHTML = boxes;
+					document.getElementById('totalPallets').innerHTML = parseInt(pall+1);
 
 					boxes++;
 					x++;
@@ -117,45 +138,38 @@
 <body>
 	<form id="form">
 		<label for="scan">Scan: </label><input type="text" id="scan" name="scan" style="width:40%"><br><br>
-		<input type="button" value="Save and Export" id="saveData"><input type="button" value="Delete Information" id="delete"><br><br>
+		<input type="button" value="Guardar y Exportar" id="saveData"><input type="button" value="Borrar Informaciòn" id="delete"><br><br>
 	</form>
 	<div id="divData">
-		<!--<table id="data" cellpadding="1" cellspacing="1" border="1">
-			<thead>
-				<tr>
-					<th>Pallet</th>
-					<th>Part Number</th>
-					<th>Pieces Per Box</th>
-					<th>WO</th>
-					<th>T.P. By WO</th>
-					<th>T.P. By P.N.</th>
-					<th>T. Boxes</th>
-					<th>T. Pallets</th>
-				</tr>
-			</thead><br>
-			<tbody id="body">
-			</tbody>
-		</table><br>-->
 		
 		<table id="dataFormat" cellpadding="1" cellspacing="1" border="1">
 			<thead>
 				<tr>
 					<th><b>Pallets</b></th>
 					<th><b>No. Parte</b></th>
+					<!--<th><b>WO</b></th>-->
 					<th><b>Cajas</b></th>
 					<th><b>Cantidad por Caja</b></th>
 					<th><b>Cantidad Total</b></th>
 				</tr>
 			</thead>
 			<tbody id="format">
+				<!--<tr id="tr_format">
+					<td id="td_pallets"></td>
+					<td id="td_noParte"></td>
+					<td id="td_wo"></td>
+					<td id="td_cajas"></td>
+					<td id="td_cantxcaja"></td>
+					<td id="td_cantTotal"></td>
+				</tr>-->
 			</tbody>
 		</table><br>
 
 		<table id="total" cellpadding="1" cellspacing="1" border="1">
 			<thead>
 				<tr>
-					<th><b>Pallets en Total</b></th>
 					<th><b>Cajas en Total</b></th>
+					<th><b>Pallets en Total</b></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -164,7 +178,7 @@
 					<td id="totalPallets"></td>
 				</tr>
 			</tbody>
-		</table><br>
+		</table>
 	</div>
 </body>
 </html>
