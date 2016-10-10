@@ -1,0 +1,34 @@
+body {
+	width: 100%;
+	background-color: #00cc99;
+}
+
+.divData {
+	width: 100%;
+	height: 325px;
+	text-align: center;
+	overflow-x: hidden;
+}
+
+div.divData table {
+	margin: 0 auto;
+}
+
+.divTotal {
+	width: 100%;
+	text-align: center;
+}
+
+div.divTotal table {
+	margin: 0 auto;
+}
+ 
+div {
+	text-align: center;
+}
+
+table {
+	border: 1px solid black;
+	border-style: inset;
+	background-color: white;
+}

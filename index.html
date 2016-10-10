@@ -11,6 +11,8 @@
 	<script type="text/javascript" src="js/jspdf/libs/sprintf.js"></script>
 	<script type="text/javascript" src="js/jspdf/jspdf.js"></script>
 	<script type="text/javascript" src="js/jspdf/libs/base64.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -23,6 +25,7 @@
 		var array_WO = new Array();
 
 		var x = 0;
+		var pN;
 		var pall = array_pallet.length;
 		var partNumb = 0;
 		var boxes = 1;
@@ -58,7 +61,7 @@
 
 				}
 				else if (c.charAt(0) == 'P') {
-					var pN = c.substring(1);
+					pN = c.substring(1);
 					$('#scan').val('');
 					if (array_pN[0] == null) {
 						array_pN.push(pN);
@@ -96,15 +99,31 @@
 						};
 					}
 
-
-					/*$('#body').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_Q[x]+'</td><td>'+array_WO[x]+'</td><td>'+piecesWO+'</td><td>'+piecesPN+'</td><td>'+boxes+'</td><td>'+parseInt(pall+1)+'</td></tr>');*/
-
 					$('#format').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_WO[x]+'</td><td>'+boxesNP+'</td><td>'+parseInt(array_Q[x])+'</td><td>'+parseInt(piecesPN)+'</td></tr>');
+					/*int i = 0;
+					if (array_pN[i] == pN) {
+						alert('No. Parte ' + array_pN[x]);
+						$('#format').append('<tr><td id="td'+i+'_pallets">' + array_pallet[pall] + '</td><td id="td'+i+'_partNumber">' + array_pN[i] + '</td><td id="td'+i+'_wo">'+ array_WO[i] + '</td><td id="td'+i+'_boxes">' + boxesNP + '</td><td id="td'+i+'_QxBox">' + parseInt(array_Q[i]) + '</td><td id="td'+i+'_totalPieces">' + parseInt(piecesPN)+'</td></tr>');
+					} else {
+						if (pN == array_pN[i-1]) {
+							alert('No. Parte ' + array_pN[x]);
+							document.getElementById('td'+i+'_pallets').innerHTML =  array_pallet[pall];
+							document.getElementById('td'+i+'_pallets').innerHTML =  array_pallet[pall];
+							document.getElementById('td'+i+'_pallets').innerHTML =  array_pallet[pall];
+							document.getElementById('td'+i+'_pallets').innerHTML =  array_pallet[pall];
+							document.getElementById('td'+i+'_pallets').innerHTML =  array_pallet[pall];
+							document.getElementById('td'+i+'_pallets').innerHTML =  array_pallet[pall];
+						} else {
+							alert('PN ' + pN);
+							alert('NUEVO No. Parte '+ array_pN[i]);
+						}
+					}*/
 
 					document.getElementById("totalTitle").innerHTML = '';
 					document.getElementById("totalBoxes").innerHTML = boxes;
 					document.getElementById("totalPallets").innerHTML = parseInt(pall+1);
 					document.getElementById("totalPieces").innerHTML = parseInt(piecesPNT);
+
 
 					boxes++;
 					x++;
@@ -121,45 +140,51 @@
 	});
 </script>
 <body>
-	<form id="form">
-		<label for="scan">Scan: </label><input type="text" id="scan" name="scan" style="width:40%"><br><br>
-		<input type="button" value="Guardar y Exportar" id="saveData"><input type="button" value="Borrar Informacion" id="delete"><br><br>
-	</form>
-	<div id="divData">
-
-		<table id="dataFormat" cellpadding="1" cellspacing="1" border="1">
-			<thead>
-				<tr>
-					<th><b>Pallets</b></th>
-					<th><b>No. Parte</b></th>
-					<th><b>WO</b></th>
-					<th><b>Cajas</b></th>
-					<th><b>Cantidad por Caja</b></th>
-					<th><b>Cantidad Total</b></th>
-				</tr>
-			</thead>
-			<tbody id="format">
-			</tbody>
-		</table><br>
-
-		<table id="total" cellpadding="1" cellspacing="1" border="1">
-			<thead>
-				<tr>
-					<th><b>Totales</b></th>
-					<th><b>Pallets</b></th>
-					<th><b>Cajas</b></th>
-					<th><b>Piezas</b></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td id="totalTitle"></td>
-					<td id="totalPallets"></td>
-					<td id="totalBoxes"></td>
-					<td id="totalPieces"></td>
-				</tr>
-			</tbody>
-		</table><br>
+	<div class="form">
+		<form id="form">
+			<input type="text" id="scan" name="scan"><br><br>
+			<input type="button" value="Guardar y Exportar" id="saveData"><input type="button" value="Borrar Informacion" id="delete"><br><br>
+		</form>
 	</div>
+	<div class="divTables">
+		<div class="divData">
+			<table id="dataFormat">
+				<thead>
+					<tr>
+						<th><b>Pallets</b></th>
+						<th><b>No. Parte</b></th>
+						<th><b>WO</b></th>
+						<th><b>Cajas</b></th>
+						<th><b>Cantidad por Caja</b></th>
+						<th><b>Cantidad Total</b></th>
+					</tr>
+				</thead>
+				<tbody id="format">
+				</tbody>
+			</table>
+		</div><br><br>
+		<div class="divTotal">
+			<table id="total">
+				<thead>
+					<tr>
+						<th><b>Totales</b></th>
+						<th><b>Pallets</b></th>
+						<th><b>Cajas</b></th>
+						<th><b>Piezas</b></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td id="totalTitle"></td>
+						<td id="totalPallets"></td>
+						<td id="totalBoxes"></td>
+						<td id="totalPieces"></td>
+					</tr>
+				</tbody>
+			</table><br>
+		</div>
+	</div>
+
+	
 </body>
 </html>
