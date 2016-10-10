@@ -29,6 +29,7 @@
 		var boxesNP = 1;
 		var piecesWO = 0;
 		var piecesPN = 0;
+		var piecesPNT = 0;
 
 		$('#form').submit(function() {
 			var c = $('#scan').val();
@@ -62,9 +63,11 @@
 					if (array_pN[0] == null) {
 						array_pN.push(pN);
 						piecesPN = array_Q[0];
+						piecesPNT = array_Q[0];
 					} else {
 						array_pN.push(pN);
 						piecesPN = 0;
+						piecesPNT = 0;
 						boxesNP = 0;
 						for (var i = 0; i < array_pN.length; i++) {
 							if (pN == array_pN[i]) {
@@ -72,6 +75,7 @@
 								boxesNP++;
 							} else {
 							}
+							piecesPNT = parseInt(piecesPNT) + parseInt(array_Q[i]);
 						};
 					}
 
@@ -95,31 +99,12 @@
 
 					/*$('#body').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_Q[x]+'</td><td>'+array_WO[x]+'</td><td>'+piecesWO+'</td><td>'+piecesPN+'</td><td>'+boxes+'</td><td>'+parseInt(pall+1)+'</td></tr>');*/
 
+					$('#format').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_WO[x]+'</td><td>'+boxesNP+'</td><td>'+parseInt(array_Q[x])+'</td><td>'+parseInt(piecesPN)+'</td></tr>');
 
-						for (var i = 0; i < array_pN.length; i++) {
-							//var add_tr = 1;
-							if (pN == array_pN[i]) {
-								alert('Entro al IF');
-								document.getElementById('td_pallets').innerHTML = array_pallet[pall];
-								document.getElementById('td_noParte').innerHTML = array_pN[x];
-								//document.getElementById('td_wo').innerHTML = array_WO[x];
-								document.getElementById('td_cajas').innerHTML = boxesNP;
-								document.getElementById('td_cantxcaja').innerHTML = parseInt(array_Q[x]);
-								document.getElementById('td_cantTotal').innerHTML = parseInt(piecesPN);
-							} else {
-								alert('Entro al ELSE');
-								$('#format').append('<tr id="tr'+i+'_format"><td id="td'+i+'_pallets">'+array_pallet[pall]+'</td><td id="td'+i+'_noParte">'+array_pN[x]+'</td><td id="td'+i+'_cajas">'+boxesNP+'</td><td id="td'+i+'_cantxcaja">'+parseInt(array_Q[x])+'</td><td id="td'+i+'_cantTotal">'+parseInt(piecesPN)+'</td></tr>');
-								//add_tr++;
-							}
-						};
-
-					/*$('#format').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_WO[x]+'</td><td>'+boxesNP+'</td><td>'+parseInt(array_Q[x])+'</td><td>'+parseInt(piecesPN)+'</td></tr>');*/
-
-					/*$('#format').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+boxesNP+'</td><td>'+parseInt(array_Q[x])+'</td><td>'+parseInt(piecesPN)+'</td></tr>');*/
-
-
-					document.getElementById('totalBoxes').innerHTML = boxes;
-					document.getElementById('totalPallets').innerHTML = parseInt(pall+1);
+					document.getElementById("totalTitle").innerHTML = '';
+					document.getElementById("totalBoxes").innerHTML = boxes;
+					document.getElementById("totalPallets").innerHTML = parseInt(pall+1);
+					document.getElementById("totalPieces").innerHTML = parseInt(piecesPNT);
 
 					boxes++;
 					x++;
@@ -138,47 +123,43 @@
 <body>
 	<form id="form">
 		<label for="scan">Scan: </label><input type="text" id="scan" name="scan" style="width:40%"><br><br>
-		<input type="button" value="Guardar y Exportar" id="saveData"><input type="button" value="Borrar Informaciòn" id="delete"><br><br>
+		<input type="button" value="Guardar y Exportar" id="saveData"><input type="button" value="Borrar Informacion" id="delete"><br><br>
 	</form>
 	<div id="divData">
-		
+
 		<table id="dataFormat" cellpadding="1" cellspacing="1" border="1">
 			<thead>
 				<tr>
 					<th><b>Pallets</b></th>
 					<th><b>No. Parte</b></th>
-					<!--<th><b>WO</b></th>-->
+					<th><b>WO</b></th>
 					<th><b>Cajas</b></th>
 					<th><b>Cantidad por Caja</b></th>
 					<th><b>Cantidad Total</b></th>
 				</tr>
 			</thead>
 			<tbody id="format">
-				<!--<tr id="tr_format">
-					<td id="td_pallets"></td>
-					<td id="td_noParte"></td>
-					<td id="td_wo"></td>
-					<td id="td_cajas"></td>
-					<td id="td_cantxcaja"></td>
-					<td id="td_cantTotal"></td>
-				</tr>-->
 			</tbody>
 		</table><br>
 
 		<table id="total" cellpadding="1" cellspacing="1" border="1">
 			<thead>
 				<tr>
-					<th><b>Cajas en Total</b></th>
-					<th><b>Pallets en Total</b></th>
+					<th><b>Totales</b></th>
+					<th><b>Pallets</b></th>
+					<th><b>Cajas</b></th>
+					<th><b>Piezas</b></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td id="totalBoxes"></td>
+					<td id="totalTitle"></td>
 					<td id="totalPallets"></td>
+					<td id="totalBoxes"></td>
+					<td id="totalPieces"></td>
 				</tr>
 			</tbody>
-		</table>
+		</table><br>
 	</div>
 </body>
 </html>
