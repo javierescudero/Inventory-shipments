@@ -34,9 +34,12 @@
 		var piecesPN = 0;
 		var piecesPNT = 0;
 
+		var bQ = false;
+		var bP = false;
+		var bW = false;
+
 		$('#form').submit(function() {
 			var c = $('#scan').val();
-
 				if (c.charAt(0) == 'T') {
 					var pallet = c.substring(1);
 					$('#scan').val('');
@@ -52,51 +55,62 @@
 							pall++;
 						}
 					}
-					//alert('Pallets = ' + (pall+1));
 				} if (c.charAt(0) == 'Q') {
 					var Q = c.substring(1);
 					Q.replace(/0/,'');
 					array_Q.push(Q);
 					$('#scan').val('');
-
+					bQ = true;
 				}
 				else if (c.charAt(0) == 'P') {
 					pN = c.substring(1);
 					$('#scan').val('');
-					if (array_pN[0] == null) {
-						array_pN.push(pN);
-						piecesPN = array_Q[0];
-						piecesPNT = array_Q[0];
+					if (bQ == true) {
+						bP = true;
+						if (array_pN[0] == null) {
+							array_pN.push(pN);
+							piecesPN = array_Q[0];
+							piecesPNT = array_Q[0];
+						} else {
+							array_pN.push(pN);
+							piecesPN = 0;
+							piecesPNT = 0;
+							boxesNP = 0;
+							for (var i = 0; i < array_pN.length; i++) {
+								if (pN == array_pN[i]) {
+									piecesPN = parseInt(piecesPN) + parseInt(array_Q[i]);
+									boxesNP++;
+								} else {
+								}
+								piecesPNT = parseInt(piecesPNT) + parseInt(array_Q[i]);
+							};
+						}
 					} else {
-						array_pN.push(pN);
-						piecesPN = 0;
-						piecesPNT = 0;
-						boxesNP = 0;
-						for (var i = 0; i < array_pN.length; i++) {
-							if (pN == array_pN[i]) {
-								piecesPN = parseInt(piecesPN) + parseInt(array_Q[i]);
-								boxesNP++;
-							} else {
-							}
-							piecesPNT = parseInt(piecesPNT) + parseInt(array_Q[i]);
-						};
+						alert('WARNING:\nDebes escanear primero la cantidad.');
 					}
 
 				} else if (c.charAt(0) == 'W') {
 					var WO = c.substring(1);
 					$('#scan').val('');
-					if (array_WO[0] == null) {
-						array_WO.push(WO);
-						piecesWO = array_Q[0];
+					if (bP == true) {
+						bQ = false;
+						bP = false;
+						if (array_WO[0] == null) {
+							array_WO.push(WO);
+							piecesWO = array_Q[0];
+						} else {
+							array_WO.push(WO);
+							piecesWO = 0;
+							for (var i = 0; i < array_WO.length; i++) {
+								if (WO == array_WO[i]) {
+									piecesWO = parseInt(piecesWO) + parseInt(array_Q[i]);
+								} else {
+								}
+							};
+						}
 					} else {
-						array_WO.push(WO);
-						piecesWO = 0;
-						for (var i = 0; i < array_WO.length; i++) {
-							if (WO == array_WO[i]) {
-								piecesWO = parseInt(piecesWO) + parseInt(array_Q[i]);
-							} else {
-							}
-						};
+						alert('WARNING:\nDebes escanear primero el numero de parte.');
+						return false;
 					}
 
 					$('#format').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_WO[x]+'</td><td>'+boxesNP+'</td><td>'+parseInt(array_Q[x])+'</td><td>'+parseInt(piecesPN)+'</td></tr>');
@@ -123,7 +137,6 @@
 					document.getElementById("totalBoxes").innerHTML = boxes;
 					document.getElementById("totalPallets").innerHTML = parseInt(pall+1);
 					document.getElementById("totalPieces").innerHTML = parseInt(piecesPNT);
-
 
 					boxes++;
 					x++;
