@@ -112,31 +112,52 @@
 						alert('WARNING:\nDebes escanear primero el numero de parte.');
 						return false;
 					}
+					
+					/*$('#format').append('<tr><td id="pallet_'+i+'">'+array_pallet[pall]+'</td><td id="parte_'+i+'">'+array_pN[x]+'</td><td id="wo_'+i+'">'+array_WO[x]+'</td><td id="boxes_'+i+'">'+boxesNP+'</td><td id="cantidad_'+i+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+i+'">'+parseInt(piecesPN)+'</td></tr>');*/
 
-					$('#format').append('<tr><td>'+array_pallet[pall]+'</td><td>'+array_pN[x]+'</td><td>'+array_WO[x]+'</td><td>'+boxesNP+'</td><td>'+parseInt(array_Q[x])+'</td><td>'+parseInt(piecesPN)+'</td></tr>');
-					/*int i = 0;
-					if (array_pN[i] == pN) {
-						alert('No. Parte ' + array_pN[x]);
-						$('#format').append('<tr><td id="td'+i+'_pallets">' + array_pallet[pall] + '</td><td id="td'+i+'_partNumber">' + array_pN[i] + '</td><td id="td'+i+'_wo">'+ array_WO[i] + '</td><td id="td'+i+'_boxes">' + boxesNP + '</td><td id="td'+i+'_QxBox">' + parseInt(array_Q[i]) + '</td><td id="td'+i+'_totalPieces">' + parseInt(piecesPN)+'</td></tr>');
-					} else {
-						if (pN == array_pN[i-1]) {
-							alert('No. Parte ' + array_pN[x]);
-							document.getElementById('td'+i+'_pallets').innerHTML =  array_pallet[pall];
-							document.getElementById('td'+i+'_pallets').innerHTML =  array_pallet[pall];
-							document.getElementById('td'+i+'_pallets').innerHTML =  array_pallet[pall];
-							document.getElementById('td'+i+'_pallets').innerHTML =  array_pallet[pall];
-							document.getElementById('td'+i+'_pallets').innerHTML =  array_pallet[pall];
-							document.getElementById('td'+i+'_pallets').innerHTML =  array_pallet[pall];
+					function buscar(noParte){
+						for (var i = 0; i < array_pN.length; i++) {
+							if (noParte == array_pN[i]) {
+								return i;
+							} else{
+							}
+						};
+					}
+
+					function contar(noParte) {
+						var cont = 0;
+						for (var i = 0; i < array_pN.length; i++) {
+							if (noParte == array_pN[i]) {
+								cont++;
+							} else{
+							}
+						};
+						return cont;
+					}
+
+					var pos = buscar(pN);
+					var cont = contar(pN);
+
+					for (var i = 0; i < array_pN.length; i++) {
+						if (cont == 1) {
+							$('#format').append('<tr><td id="pallet_'+i+'">'+array_pallet[pall]+'</td><td id="parte_'+i+'">'+array_pN[x]+'</td><td id="wo_'+i+'">'+array_WO[x]+'</td><td id="boxes_'+i+'">'+boxesNP+'</td><td id="cantidad_'+i+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+i+'">'+parseInt(piecesPN)+'</td></tr>');
 						} else {
-							alert('PN ' + pN);
-							alert('NUEVO No. Parte '+ array_pN[i]);
+							if (pN == array_pN[i]) {
+								document.getElementById('pallet_'+pos+'').innerHTML = array_pallet[pall];
+								document.getElementById('parte_'+pos+'').innerHTML = array_pN[x];
+								document.getElementById('wo_'+pos+'').innerHTML = array_WO[x];
+								document.getElementById('boxes_'+pos+'').innerHTML = boxesNP;
+								document.getElementById('cantidad_'+pos+'').innerHTML = parseInt(array_Q[x]);
+								document.getElementById('piezas_'+pos+'').innerHTML = parseInt(piecesPN);
+							} else {
+								/*$('#format').append('<tr><td id="pallet_'+i+'">'+array_pallet[pall]+'</td><td id="parte_'+i+'">'+array_pN[x]+'</td><td id="wo_'+i+'">'+array_WO[x]+'</td><td id="boxes_'+i+'">'+boxesNP+'</td><td id="cantidad_'+i+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+i+'">'+parseInt(piecesPN)+'</td></tr>');*/
+							}
 						}
-					}*/
+					};
 
-					document.getElementById("totalTitle").innerHTML = '';
-					document.getElementById("totalBoxes").innerHTML = boxes;
-					document.getElementById("totalPallets").innerHTML = parseInt(pall+1);
-					document.getElementById("totalPieces").innerHTML = parseInt(piecesPNT);
+					document.getElementById('totalBoxes').innerHTML = boxes;
+					document.getElementById('totalPallets').innerHTML = parseInt(pall+1);
+					document.getElementById('totalPieces').innerHTML = parseInt(piecesPNT);
 
 					boxes++;
 					x++;
@@ -149,6 +170,7 @@
 		});
 		$('#delete').click(function(){
 			$('tbody').remove();
+			$('#scan').val('');
 		});
 	});
 </script>
@@ -173,6 +195,12 @@
 					</tr>
 				</thead>
 				<tbody id="format">
+					<!--<td id="pallet_0"></td>
+					<td id="parte_0"></td>
+					<td id="wo_0"></td>
+					<td id="boxes_0"></td>
+					<td id="cantidad_0"></td>
+					<td id="piezas_0"></td>-->
 				</tbody>
 			</table>
 		</div><br><br>
@@ -180,7 +208,6 @@
 			<table id="total">
 				<thead>
 					<tr>
-						<th><b>Totales</b></th>
 						<th><b>Pallets</b></th>
 						<th><b>Cajas</b></th>
 						<th><b>Piezas</b></th>
@@ -188,7 +215,6 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td id="totalTitle"></td>
 						<td id="totalPallets"></td>
 						<td id="totalBoxes"></td>
 						<td id="totalPieces"></td>
