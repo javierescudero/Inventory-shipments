@@ -32,6 +32,4 @@ table {
 
 thead, tbody, td, tr { border: 1px solid black; }
 
-#divDate {
-	float: right;
-}
+#divDate { float: right; }
