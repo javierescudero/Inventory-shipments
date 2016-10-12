@@ -33,3 +33,5 @@ table {
 thead, tbody, td, tr { border: 1px solid black; }
 
 #divDate { float: right; }
+
+label { background-color: #339966; }
