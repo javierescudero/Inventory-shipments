@@ -16,17 +16,17 @@
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
-alert('document ready');
+
 		$('#scan').focus();
 
 		var array_pallet = new Array(), array_Q = new Array(), array_pN = new Array(), array_WO = new Array();
-		var pN, pall = array_pallet.length;
-		var x = 0, boxes = 1, boxesNP = 1;
+		var x = 0, pN, pall = array_pallet.length;
+		var boxes = 1, boxesNP = 1;
 		var partNumb = 0, piecesWO = 0, piecesPN = 0, piecesPNT = 0;
 		var bQ = false, bP = false, bW = false;
 
 		$('#form').submit(function() {
-			/*var c = $('#scan').val();
+			var c = $('#scan').val();
 				if (c.charAt(0) == 'T') {
 					var pallet = c.substring(1);
 					$('#scan').val('');
@@ -67,7 +67,8 @@ alert('document ready');
 								if (pN == array_pN[i]) {
 									piecesPN = parseInt(piecesPN) + parseInt(array_Q[i]);
 									boxesNP++;
-								} else {}
+								} else {
+								}
 								piecesPNT = parseInt(piecesPNT) + parseInt(array_Q[i]);
 							};
 						}
@@ -90,19 +91,21 @@ alert('document ready');
 							for (var i = 0; i < array_WO.length; i++) {
 								if (WO == array_WO[i]) {
 									piecesWO = parseInt(piecesWO) + parseInt(array_Q[i]);
-								} else {}
+								} else {
+								}
 							};
 						}
 					} else {
 						alert('WARNING:\nDebes escanear primero el numero de parte.');
 						return false;
 					}
-
+					
 					function buscar(noParte){
 						for (var i = 0; i < array_pN.length; i++) {
 							if (noParte == array_pN[i]) {
 								return i;
-							} else {}
+							} else{
+							}
 						};
 					}
 
@@ -111,7 +114,8 @@ alert('document ready');
 						for (var i = 0; i < array_pN.length; i++) {
 							if (noParte == array_pN[i]) {
 								cont++;
-							} else {}
+							} else{
+							}
 						};
 						return cont;
 					}
@@ -121,8 +125,7 @@ alert('document ready');
 
 					for (var i = 0; i < array_pN.length; i++) {
 						if (cont == 1) {
-							$('#format').append('<tr><td id="pallet_'+pos+'">'+array_pallet[pall]+'</td><td id="parte_'+pos+'">'+array_pN[x]+'</td><td id="wo_'+pos+'">'+array_WO[x]+'</td><td id="boxes_'+pos+'">'+boxesNP+'</td><td id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');
-
+							$('#format').append('<tr><td id="pallet_'+i+'">'+array_pallet[pall]+'</td><td id="parte_'+i+'">'+array_pN[x]+'</td><td id="wo_'+i+'">'+array_WO[x]+'</td><td id="boxes_'+i+'">'+boxesNP+'</td><td id="cantidad_'+i+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+i+'">'+parseInt(piecesPN)+'</td></tr>');
 						} else {
 							if (pN == array_pN[i]) {
 								document.getElementById('pallet_'+pos+'').innerHTML = array_pallet[pall];
@@ -142,8 +145,7 @@ alert('document ready');
 					boxes++;
 					x++;
 				}
-			return false;*/
-			alert('ENTER');
+			return false;
 		});
 
 		$('#saveData').click(function(){
@@ -153,27 +155,13 @@ alert('document ready');
 			$('tbody').remove();
 			$('#scan').val('');
 		});
-
-		Date.prototype.toDateInputValue = (function() {
-		    var local = new Date(this);
-		    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-		    return local.toJSON().slice(0,10);
-		});
-
-		//$('#date').val(new Date().toDateInputValue());
-		//document.getElementById('date').value = new Date().toDateInputValue();
 	});
 </script>
 <body>
 	<div class="form">
 		<form id="form">
-			<h1>REPORTE DE EMBARQUES</h1>
-			<div id="divDate">
-				<b><label for="date">Fecha: </label></b><input type="date" id="date" disabled>
-			</div><br><br>
 			<input type="text" id="scan" name="scan"><br><br>
 			<input type="button" value="Guardar y Exportar" id="saveData"><input type="button" value="Borrar Informacion" id="delete"><br><br>
-
 		</form>
 	</div>
 	<div class="divTables">
@@ -212,5 +200,7 @@ alert('document ready');
 			</table>
 		</div><br><br>
 	</div>
+
+	
 </body>
 </html>
