@@ -19,24 +19,11 @@
 
 		$('#scan').focus();
 
-		var array_pallet = new Array();
-		var array_Q = new Array();
-		var array_pN = new Array();
-		var array_WO = new Array();
-
-		var x = 0;
-		var pN;
-		var pall = array_pallet.length;
-		var partNumb = 0;
-		var boxes = 1;
-		var boxesNP = 1;
-		var piecesWO = 0;
-		var piecesPN = 0;
-		var piecesPNT = 0;
-
-		var bQ = false;
-		var bP = false;
-		var bW = false;
+		var array_pallet = new Array(), array_Q = new Array(), array_pN = new Array(), array_WO = new Array();
+		var pN, pall = array_pallet.length;
+		var x = 0, boxes = 1, boxesNP = 1;
+		var partNumb = 0, piecesWO = 0, piecesPN = 0, piecesPNT = 0;
+		var bQ = false, bP = false, bW = false;
 
 		$('#form').submit(function() {
 			var c = $('#scan').val();
@@ -80,8 +67,7 @@
 								if (pN == array_pN[i]) {
 									piecesPN = parseInt(piecesPN) + parseInt(array_Q[i]);
 									boxesNP++;
-								} else {
-								}
+								} else {}
 								piecesPNT = parseInt(piecesPNT) + parseInt(array_Q[i]);
 							};
 						}
@@ -104,23 +90,19 @@
 							for (var i = 0; i < array_WO.length; i++) {
 								if (WO == array_WO[i]) {
 									piecesWO = parseInt(piecesWO) + parseInt(array_Q[i]);
-								} else {
-								}
+								} else {}
 							};
 						}
 					} else {
 						alert('WARNING:\nDebes escanear primero el numero de parte.');
 						return false;
 					}
-					
-					/*$('#format').append('<tr><td id="pallet_'+i+'">'+array_pallet[pall]+'</td><td id="parte_'+i+'">'+array_pN[x]+'</td><td id="wo_'+i+'">'+array_WO[x]+'</td><td id="boxes_'+i+'">'+boxesNP+'</td><td id="cantidad_'+i+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+i+'">'+parseInt(piecesPN)+'</td></tr>');*/
 
 					function buscar(noParte){
 						for (var i = 0; i < array_pN.length; i++) {
 							if (noParte == array_pN[i]) {
 								return i;
-							} else{
-							}
+							} else {}
 						};
 					}
 
@@ -129,8 +111,7 @@
 						for (var i = 0; i < array_pN.length; i++) {
 							if (noParte == array_pN[i]) {
 								cont++;
-							} else{
-							}
+							} else {}
 						};
 						return cont;
 					}
@@ -139,8 +120,9 @@
 					var cont = contar(pN);
 
 					for (var i = 0; i < array_pN.length; i++) {
-						if (cont == 1) {
-							$('#format').append('<tr><td id="pallet_'+i+'">'+array_pallet[pall]+'</td><td id="parte_'+i+'">'+array_pN[x]+'</td><td id="wo_'+i+'">'+array_WO[x]+'</td><td id="boxes_'+i+'">'+boxesNP+'</td><td id="cantidad_'+i+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+i+'">'+parseInt(piecesPN)+'</td></tr>');
+						if (cont < 2) {
+							$('#format').append('<tr><td id="pallet_'+pos+'">'+array_pallet[pall]+'</td><td id="parte_'+pos+'">'+array_pN[x]+'</td><td id="wo_'+pos+'">'+array_WO[x]+'</td><td id="boxes_'+pos+'">'+boxesNP+'</td><td id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');
+
 						} else {
 							if (pN == array_pN[i]) {
 								document.getElementById('pallet_'+pos+'').innerHTML = array_pallet[pall];
@@ -149,9 +131,7 @@
 								document.getElementById('boxes_'+pos+'').innerHTML = boxesNP;
 								document.getElementById('cantidad_'+pos+'').innerHTML = parseInt(array_Q[x]);
 								document.getElementById('piezas_'+pos+'').innerHTML = parseInt(piecesPN);
-							} else {
-								/*$('#format').append('<tr><td id="pallet_'+i+'">'+array_pallet[pall]+'</td><td id="parte_'+i+'">'+array_pN[x]+'</td><td id="wo_'+i+'">'+array_WO[x]+'</td><td id="boxes_'+i+'">'+boxesNP+'</td><td id="cantidad_'+i+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+i+'">'+parseInt(piecesPN)+'</td></tr>');*/
-							}
+							} else {}
 						}
 					};
 
@@ -172,38 +152,30 @@
 			$('tbody').remove();
 			$('#scan').val('');
 		});
+
+		Date.prototype.toDateInputValue = (function() {
+		    var local = new Date(this);
+		    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+		    return local.toJSON().slice(0,10);
+		});
+
+		//$('#date').val(new Date().toDateInputValue());
+		document.getElementById('date').value = new Date().toDateInputValue();
 	});
 </script>
 <body>
 	<div class="form">
 		<form id="form">
+			<h1>REPORTE DE EMBARQUES</h1>
+			<div id="divDate">
+				<b><label for="date">Fecha: </label></b><input type="date" id="date" disabled>
+			</div><br><br>
 			<input type="text" id="scan" name="scan"><br><br>
 			<input type="button" value="Guardar y Exportar" id="saveData"><input type="button" value="Borrar Informacion" id="delete"><br><br>
+
 		</form>
 	</div>
 	<div class="divTables">
-		<div class="divData">
-			<table id="dataFormat">
-				<thead>
-					<tr>
-						<th><b>Pallets</b></th>
-						<th><b>No. Parte</b></th>
-						<th><b>WO</b></th>
-						<th><b>Cajas</b></th>
-						<th><b>Cantidad por Caja</b></th>
-						<th><b>Cantidad Total</b></th>
-					</tr>
-				</thead>
-				<tbody id="format">
-					<!--<td id="pallet_0"></td>
-					<td id="parte_0"></td>
-					<td id="wo_0"></td>
-					<td id="boxes_0"></td>
-					<td id="cantidad_0"></td>
-					<td id="piezas_0"></td>-->
-				</tbody>
-			</table>
-		</div><br><br>
 		<div class="divTotal">
 			<table id="total">
 				<thead>
@@ -222,8 +194,22 @@
 				</tbody>
 			</table><br>
 		</div>
+		<div class="divData">
+			<table id="dataFormat">
+				<thead>
+					<tr>
+						<th><b>Pallets</b></th>
+						<th><b>No. Parte</b></th>
+						<th><b>WO</b></th>
+						<th><b>Cajas</b></th>
+						<th><b>Cantidad por Caja</b></th>
+						<th><b>Cantidad Total</b></th>
+					</tr>
+				</thead>
+				<tbody id="format">
+				</tbody>
+			</table>
+		</div><br><br>
 	</div>
-
-	
 </body>
 </html>
