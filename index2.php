@@ -14,6 +14,11 @@
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
+
+<?php
+	if (!isset($_POST['saveData'])) {
+?>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 
@@ -121,27 +126,20 @@
 					}
 
 					var pos = buscar(pN);
-					var cont = cont = contar(pN);;
+					var cont = contar(pN);
 
 					for (var i = 0; i < array_pN.length; i++) {
-						//alert('FOR');
-						//alert('cont ' + cont);
 						if (cont == 1) {
-							//alert('if (cont == 1)');
-							$('#format').append('<tr><td id="pallet_'+pos+'">'+array_pallet[pall]+'</td><td id="parte_'+pos+'">'+array_pN[x]+'</td><td id="wo_'+pos+'">'+array_WO[x]+'</td><td id="boxes_'+pos+'">'+boxesNP+'</td><td id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');
-							cont++;
+							$('#format').append('<tr><td id="pallet_'+i+'">'+array_pallet[pall]+'</td><td id="parte_'+i+'">'+array_pN[x]+'</td><td id="wo_'+i+'">'+array_WO[x]+'</td><td id="boxes_'+i+'">'+boxesNP+'</td><td id="cantidad_'+i+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+i+'">'+parseInt(piecesPN)+'</td></tr>');
 						} else {
 							if (pN == array_pN[i]) {
-								//alert('if (pN == array_pN[i])');
 								document.getElementById('pallet_'+pos+'').innerHTML = array_pallet[pall];
 								document.getElementById('parte_'+pos+'').innerHTML = array_pN[x];
 								document.getElementById('wo_'+pos+'').innerHTML = array_WO[x];
 								document.getElementById('boxes_'+pos+'').innerHTML = boxesNP;
 								document.getElementById('cantidad_'+pos+'').innerHTML = parseInt(array_Q[x]);
 								document.getElementById('piezas_'+pos+'').innerHTML = parseInt(piecesPN);
-							} else {
-								//alert('ELSE');
-							}
+							} else {}
 						}
 					};
 
@@ -157,6 +155,7 @@
 
 		$('#saveData').click(function(){
 			
+			document.getElementById('form').submit();
 			//$('table').tableExport({type:'excel',escape:'false'});
 		});
 		$('#delete').click(function(){
@@ -174,54 +173,59 @@
 		document.getElementById('date').innerHTML = today;
 	});
 </script>
+
 <body>
-	<div class="form">
-		<form id="form">
+	<div class="divForm">
+		<form id="form" method="post" action="">
 			<h1>REPORTE DE EMBARQUES</h1>
 			<div id="divDate">
-				<label id="date"></label>
+				Fecha: <label id="date"></label>
 			</div><br><br>
 			<input type="text" id="scan" name="scan"><br><br>
-			<input type="button" value="Enviar a correo" id="saveData"><input type="button" value="Borrar Informacion" id="delete"><br><br>
+			<input type="button" value="Enviar a correo" id="saveData" name="saveData"><input type="button" value="Borrar Informacion" id="delete" name="delete"><br><br>
+			<div class="divTables">
+				<div class="divTotal">
+					<table id="total">
+						<thead>
+							<tr>
+								<th><b>Pallets</b></th>
+								<th><b>Cajas</b></th>
+								<th><b>Piezas</b></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td id="totalPallets"></td>
+								<td id="totalBoxes"></td>
+								<td id="totalPieces"></td>
+							</tr>
+						</tbody>
+					</table><br>
+				</div>
+				<div class="divData">
+					<table id="dataFormat">
+						<thead>
+							<tr>
+								<th><b>Pallets</b></th>
+								<th><b>No. Parte</b></th>
+								<th><b>WO</b></th>
+								<th><b>Cajas</b></th>
+								<th><b>Cantidad por Caja</b></th>3
+								<th><b>Cantidad Total</b></th>
+							</tr>
+						</thead>
+						<tbody id="format">
+						</tbody>
+					</table>
+				</div><br><br>
+			</div>
 		</form>
 	</div>
-	<div class="divTables">
-		<div class="divTotal">
-			<table id="total">
-				<thead>
-					<tr>
-						<th><b>Pallets</b></th>
-						<th><b>Cajas</b></th>
-						<th><b>Piezas</b></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td id="totalPallets"></td>
-						<td id="totalBoxes"></td>
-						<td id="totalPieces"></td>
-					</tr>
-				</tbody>
-			</table><br>
-		</div>
-		<div class="divData">
-			<table id="dataFormat">
-				<thead>
-					<tr>
-						<th><b>Pallets</b></th>
-						<th><b>No. Parte</b></th>
-						<th><b>WO</b></th>
-						<th><b>Cajas</b></th>
-						<th><b>Cantidad por Caja</b></th>
-						<th><b>Cantidad Total</b></th>
-					</tr>
-				</thead>
-				<tbody id="format">
-				</tbody>
-			</table>
-		</div><br><br>
-	</div>
-
-	
+<?php
+	} else {
+		$mensaje = "Reporte de Embarques";
+		$mensaje.= "\nNombre: ". $_POST['']
+	}
+?>	
 </body>
 </html>
