@@ -124,24 +124,18 @@
 					var cont = cont = contar(pN);;
 
 					for (var i = 0; i < array_pN.length; i++) {
-						//alert('FOR');
-						//alert('cont ' + cont);
 						if (cont == 1) {
-							//alert('if (cont == 1)');
 							$('#format').append('<tr><td id="pallet_'+pos+'">'+array_pallet[pall]+'</td><td id="parte_'+pos+'">'+array_pN[x]+'</td><td id="wo_'+pos+'">'+array_WO[x]+'</td><td id="boxes_'+pos+'">'+boxesNP+'</td><td id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');
 							cont++;
 						} else {
 							if (pN == array_pN[i]) {
-								//alert('if (pN == array_pN[i])');
 								document.getElementById('pallet_'+pos+'').innerHTML = array_pallet[pall];
 								document.getElementById('parte_'+pos+'').innerHTML = array_pN[x];
 								document.getElementById('wo_'+pos+'').innerHTML = array_WO[x];
 								document.getElementById('boxes_'+pos+'').innerHTML = boxesNP;
 								document.getElementById('cantidad_'+pos+'').innerHTML = parseInt(array_Q[x]);
 								document.getElementById('piezas_'+pos+'').innerHTML = parseInt(piecesPN);
-							} else {
-								//alert('ELSE');
-							}
+							} else {}
 						}
 					};
 
