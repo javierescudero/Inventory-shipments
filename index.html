@@ -16,7 +16,7 @@
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
-
+alert('document ready');
 		$('#scan').focus();
 
 		var array_pallet = new Array(), array_Q = new Array(), array_pN = new Array(), array_WO = new Array();
@@ -26,7 +26,7 @@
 		var bQ = false, bP = false, bW = false;
 
 		$('#form').submit(function() {
-			var c = $('#scan').val();
+			/*var c = $('#scan').val();
 				if (c.charAt(0) == 'T') {
 					var pallet = c.substring(1);
 					$('#scan').val('');
@@ -120,7 +120,7 @@
 					var cont = contar(pN);
 
 					for (var i = 0; i < array_pN.length; i++) {
-						if (cont < 2) {
+						if (cont == 1) {
 							$('#format').append('<tr><td id="pallet_'+pos+'">'+array_pallet[pall]+'</td><td id="parte_'+pos+'">'+array_pN[x]+'</td><td id="wo_'+pos+'">'+array_WO[x]+'</td><td id="boxes_'+pos+'">'+boxesNP+'</td><td id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');
 
 						} else {
@@ -142,7 +142,8 @@
 					boxes++;
 					x++;
 				}
-			return false;
+			return false;*/
+			alert('ENTER');
 		});
 
 		$('#saveData').click(function(){
@@ -160,7 +161,7 @@
 		});
 
 		//$('#date').val(new Date().toDateInputValue());
-		document.getElementById('date').value = new Date().toDateInputValue();
+		//document.getElementById('date').value = new Date().toDateInputValue();
 	});
 </script>
 <body>
