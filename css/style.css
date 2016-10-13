@@ -6,22 +6,33 @@ body {
 thead { background-color: #00cc99; }
 
 .divData {
-	width: 100%;
+	width: 40%;
 	height: 400px;
-	text-align: center;
 	overflow-x: hidden;
 }
 
-div.divData table { margin: 0 auto; }
+.form { text-align: center; }
 
-.divTotal {
-	width: 100%;
-	text-align: center;
+.divDataWO {
+	width: 15%;
+	float: left;
+	margin-left: 20%;
+	
 }
 
-div.divTotal table { margin: 0 auto; }
- 
-div { text-align: center; }
+.divTotal {
+	width: 15%;
+	float: left;
+	margin-left: 0;
+	margin-top: -20px;
+}
+
+.divData {
+	float: left;
+	margin-left: 5%;
+	margin-top: -40px;
+}
+
 
 table {
 	border: 5px solid #00cc99;
