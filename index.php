@@ -1,8 +1,3 @@
-<?php
-	if (isset($_POST['saveData'])) {
-
-	}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -183,14 +178,7 @@
 			return false;
 		});
 
-		$('#saveData').click(function(){
-			
-			//$('table').tableExport({type:'excel',escape:'false'});
-		});
-		$('#delete').click(function(){
-			/*$('tbody').remove();
-			$('#scan').val('');*/
-		});
+		
 
 		/*function toJSONLocal (date) {
 		    var local = new Date(date);
@@ -202,9 +190,10 @@
 		document.getElementById('date').innerHTML = today;*/
 	});
 </script>
+
 <body>
 	<div class="form">
-		<form id="form">
+		<form action="sendmail.php" method="post">
 			<h1>REPORTE DE EMBARQUES</h1>
 			<!--<div id="divDate">
 				<label id="date"></label>
@@ -212,70 +201,71 @@
 			<div class="correo">
 				<label><b>Enviar formato a: </b></label>
 				<select id="emails" name="emails">
-				  <option value="default">- - - Selecciona tu correo - - -</option>
+				  <option value="default">- - - Selecciona Tu Correo - - -</option>
 				  <option value="daniel">daniel.hernandez@emerson.com</option>
 				  <option value="luis">luis.aguilar@emerson.com</option>
 				  <option value="nerit">nerit.paz@emerson.com</option>
 				</select><br><br>
 			</div>
-			<input type="text" id="scan" name="scan"><br><br>
-			<input type="button" value="Enviar a correo" id="saveData"><br><br><br><!--<input type="button" value="Borrar Informacion" id="delete"><br><br><hr><br>-->
+			<input type="submit" value="Enviar a correo" id="saveData" name="saveData"><br><br><br>
 		</form>
 	</div>
-	<div class="divTables">
-
-		<div class="divDataWO">
-			<label><b>Piezas por WO</b></label>
-			<table id="dataWO">
-				<thead>
-					<tr>
-						<th><b>WO</b></th>
-						<th><b>Piezas</b></th>
-					</tr>
-				</thead>
-				<tbody id="formatWO">
-				</tbody>
-			</table>
-		</div><br>
-
-		<div class="divTotal">
-			<label><b>Piezas Totales</b></label>
-			<table id="total">
-				<thead>
-					<tr>
-						<th><b>Pallets</b></th>
-						<th><b>Cajas</b></th>
-						<th><b>Piezas</b></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td id="totalPallets"></td>
-						<td id="totalBoxes"></td>
-						<td id="totalPieces"></td>
-					</tr>
-				</tbody>
-			</table>
-		</div><br>
-
-		<div class="divData">
-			<label><b>Piezas por No. Parte</b></label>
-			<table id="dataFormat">
-				<thead>
-					<tr>
-						<th><b>Pallet</b></th>
-						<th><b>No. Parte</b></th>
-						<th><b>Cajas</b></th>
-						<th><b>Cantidad por Caja</b></th>
-						<th><b>Cantidad Total</b></th>
-					</tr>
-				</thead>
-				<tbody id="format">
-				</tbody>
-			</table>
-		</div>
-	</div>
-
+	<form id="form">
 	
+	<input type="text" id="scan" name="scan"><br><br>
+		<div class="divTables">
+
+			<div class="divDataWO">
+				<label><b>Piezas por WO</b></label>
+				<table id="dataWO">
+					<thead>
+						<tr>
+							<th><b>WO</b></th>
+							<th><b>Piezas</b></th>
+						</tr>
+					</thead>
+					<tbody id="formatWO">
+					</tbody>
+				</table>
+			</div><br>
+
+			<div class="divTotal">
+				<label><b>Piezas Totales</b></label>
+				<table id="total">
+					<thead>
+						<tr>
+							<th><b>Pallets</b></th>
+							<th><b>Cajas</b></th>
+							<th><b>Piezas</b></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td id="totalPallets"></td>
+							<td id="totalBoxes"></td>
+							<td id="totalPieces"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div><br>
+
+			<div class="divData">
+				<label><b>Piezas por No. Parte</b></label>
+				<table id="dataFormat">
+					<thead>
+						<tr>
+							<th><b>Pallet</b></th>
+							<th><b>No. Parte</b></th>
+							<th><b>Cajas</b></th>
+							<th><b>Cantidad por Caja</b></th>
+							<th><b>Cantidad Total</b></th>
+						</tr>
+					</thead>
+					<tbody id="format">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</form>
 </body>
 </html>
