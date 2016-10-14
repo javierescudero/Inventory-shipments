@@ -5,12 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Inventory Shipments</title>
 	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="js/tableExport.js"></script>
+	<!--<script type="text/javascript" src="js/tableExport.js"></script>
 	<script type="text/javascript" src="js/jquery.base64.js"></script>
 	<script type="text/javascript" src="js/html2canvas.js"></script>
 	<script type="text/javascript" src="js/jspdf/libs/sprintf.js"></script>
 	<script type="text/javascript" src="js/jspdf/jspdf.js"></script>
-	<script type="text/javascript" src="js/jspdf/libs/base64.js"></script>
+	<script type="text/javascript" src="js/jspdf/libs/base64.js"></script>-->
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -145,29 +145,16 @@
 
 					//Piezas por WO
 					for (var i = 0; i < array_WO.length; i++) {
-						//alert('Vuelta = '+ i);
-						//alert('WO = '+ WO);
-						//alert('contWO = '+ contWO);
-						//alert('posWO = '+ posWO);
 						if (contWO == 1) {
-						//alert('if (contWO == 1)');
-						//alert('posWO = '+ posWO);
 							$('#formatWO').append('<tr><td id="wo_'+posWO+'">'+array_WO[x]+'</td><td id="piezasWO_'+posWO+'">'+parseInt(piecesWO)+'</td></tr>');
 							contWO++;
 						} else {
-							//alert('else');
-							//alert('WO = '+ WO);
-							//alert('array_WO[i] = '+ array_WO[i]);
 							if (WO == array_WO[i]) {
-								//alert('if (WO == array_WO[i])');
-								//alert('posWO = '+ posWO);
 								document.getElementById('wo_'+posWO+'').innerHTML = array_WO[i];
 								document.getElementById('piezasWO_'+posWO+'').innerHTML = parseInt(piecesWO);
 							} else {
-								//alert('else sin nada');
 							}
 						}
-						//alert('Fin vuelta = ' + i);
 					};
 
 					//Contidad por numero de parte
@@ -205,25 +192,30 @@
 			$('#scan').val('');*/
 		});
 
-		function toJSONLocal (date) {
+		/*function toJSONLocal (date) {
 		    var local = new Date(date);
 		    local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
 		    return local.toJSON().slice(0, 10);
 		}
 
 		var today = new Date().toISOString().slice(0, 10);
-		document.getElementById('date').innerHTML = today;
+		document.getElementById('date').innerHTML = today;*/
 	});
 </script>
 <body>
 	<div class="form">
 		<form id="form">
 			<h1>REPORTE DE EMBARQUES</h1>
-			<div id="divDate">
+			<!--<div id="divDate">
 				<label id="date"></label>
-			</div><br><br>
+			</div><br><br>-->
+			<select id="emails" name="emails">
+			  <option value="daniel">daniel.hernandez@emerson.com</option>
+			  <option value="luis">luis.aguilar@emerson.com</option>
+			  <option value="nerit">nerit.paz@emerson.com</option>
+			</select><br><br>
 			<input type="text" id="scan" name="scan"><br><br>
-			<input type="button" value="Enviar a correo" id="saveData"><br><!--<input type="button" value="Borrar Informacion" id="delete"><br><br><hr><br>-->
+			<input type="button" value="Enviar a correo" id="saveData"><br><br><br><!--<input type="button" value="Borrar Informacion" id="delete"><br><br><hr><br>-->
 		</form>
 	</div>
 	<div class="divTables">

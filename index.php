@@ -1,3 +1,9 @@
+<?php
+	if (isset($_POST['saveData'])) {
+
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,20 +11,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Inventory Shipments</title>
 	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="js/tableExport.js"></script>
-	<script type="text/javascript" src="js/jquery.base64.js"></script>
-	<script type="text/javascript" src="js/html2canvas.js"></script>
-	<script type="text/javascript" src="js/jspdf/libs/sprintf.js"></script>
-	<script type="text/javascript" src="js/jspdf/jspdf.js"></script>
-	<script type="text/javascript" src="js/jspdf/libs/base64.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-
-<?php
-	if (!isset($_POST['saveData'])) {
-?>
-
 <script type="text/javascript">
 	$(document).ready(function(){
 
@@ -105,7 +100,7 @@
 						return false;
 					}
 					
-					function buscar(noParte){
+					function buscarNP(noParte){
 						for (var i = 0; i < array_pN.length; i++) {
 							if (noParte == array_pN[i]) {
 								return i;
@@ -114,7 +109,7 @@
 						};
 					}
 
-					function contar(noParte) {
+					function contarNP(noParte) {
 						var cont = 0;
 						for (var i = 0; i < array_pN.length; i++) {
 							if (noParte == array_pN[i]) {
@@ -125,17 +120,52 @@
 						return cont;
 					}
 
-					var pos = buscar(pN);
-					var cont = contar(pN);
+					function buscarWO(wo){
+						for (var i = 0; i < array_WO.length; i++) {
+							if (wo == array_WO[i]) {
+								return i;
+							} else{
+							}
+						};
+					}
 
+					function contarWO(wo) {
+						var cont = 0;
+						for (var i = 0; i < array_WO.length; i++) {
+							if (wo == array_WO[i]) {
+								cont++;
+							} else{
+							}
+						};
+						return cont;
+					}
+
+					var pos = buscarNP(pN), cont = contarNP(pN);
+					var posWO = buscarWO(WO), contWO = contarWO(WO);
+
+					//Piezas por WO
+					for (var i = 0; i < array_WO.length; i++) {
+						if (contWO == 1) {
+							$('#formatWO').append('<tr><td id="wo_'+posWO+'">'+array_WO[x]+'</td><td id="piezasWO_'+posWO+'">'+parseInt(piecesWO)+'</td></tr>');
+							contWO++;
+						} else {
+							if (WO == array_WO[i]) {
+								document.getElementById('wo_'+posWO+'').innerHTML = array_WO[i];
+								document.getElementById('piezasWO_'+posWO+'').innerHTML = parseInt(piecesWO);
+							} else {
+							}
+						}
+					};
+
+					//Contidad por numero de parte
 					for (var i = 0; i < array_pN.length; i++) {
 						if (cont == 1) {
-							$('#format').append('<tr><td id="pallet_'+i+'">'+array_pallet[pall]+'</td><td id="parte_'+i+'">'+array_pN[x]+'</td><td id="wo_'+i+'">'+array_WO[x]+'</td><td id="boxes_'+i+'">'+boxesNP+'</td><td id="cantidad_'+i+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+i+'">'+parseInt(piecesPN)+'</td></tr>');
+							$('#format').append('<tr><td id="pallet_'+pos+'">'+array_pallet[pall]+'</td><td id="parte_'+pos+'">'+array_pN[x]+'</td><td id="boxes_'+pos+'">'+boxesNP+'</td><td id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');
+							cont++;
 						} else {
 							if (pN == array_pN[i]) {
 								document.getElementById('pallet_'+pos+'').innerHTML = array_pallet[pall];
 								document.getElementById('parte_'+pos+'').innerHTML = array_pN[x];
-								document.getElementById('wo_'+pos+'').innerHTML = array_WO[x];
 								document.getElementById('boxes_'+pos+'').innerHTML = boxesNP;
 								document.getElementById('cantidad_'+pos+'').innerHTML = parseInt(array_Q[x]);
 								document.getElementById('piezas_'+pos+'').innerHTML = parseInt(piecesPN);
@@ -155,77 +185,97 @@
 
 		$('#saveData').click(function(){
 			
-			document.getElementById('form').submit();
 			//$('table').tableExport({type:'excel',escape:'false'});
 		});
 		$('#delete').click(function(){
-			$('tbody').remove();
-			$('#scan').val('');
+			/*$('tbody').remove();
+			$('#scan').val('');*/
 		});
 
-		function toJSONLocal (date) {
+		/*function toJSONLocal (date) {
 		    var local = new Date(date);
 		    local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
 		    return local.toJSON().slice(0, 10);
 		}
 
 		var today = new Date().toISOString().slice(0, 10);
-		document.getElementById('date').innerHTML = today;
+		document.getElementById('date').innerHTML = today;*/
 	});
 </script>
-
 <body>
-	<div class="divForm">
-		<form id="form" method="post" action="">
+	<div class="form">
+		<form id="form">
 			<h1>REPORTE DE EMBARQUES</h1>
-			<div id="divDate">
-				Fecha: <label id="date"></label>
-			</div><br><br>
-			<input type="text" id="scan" name="scan"><br><br>
-			<input type="button" value="Enviar a correo" id="saveData" name="saveData"><input type="button" value="Borrar Informacion" id="delete" name="delete"><br><br>
-			<div class="divTables">
-				<div class="divTotal">
-					<table id="total">
-						<thead>
-							<tr>
-								<th><b>Pallets</b></th>
-								<th><b>Cajas</b></th>
-								<th><b>Piezas</b></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td id="totalPallets"></td>
-								<td id="totalBoxes"></td>
-								<td id="totalPieces"></td>
-							</tr>
-						</tbody>
-					</table><br>
-				</div>
-				<div class="divData">
-					<table id="dataFormat">
-						<thead>
-							<tr>
-								<th><b>Pallets</b></th>
-								<th><b>No. Parte</b></th>
-								<th><b>WO</b></th>
-								<th><b>Cajas</b></th>
-								<th><b>Cantidad por Caja</b></th>3
-								<th><b>Cantidad Total</b></th>
-							</tr>
-						</thead>
-						<tbody id="format">
-						</tbody>
-					</table>
-				</div><br><br>
+			<!--<div id="divDate">
+				<label id="date"></label>
+			</div><br><br>-->
+			<div class="correo">
+				<label><b>Enviar formato a: </b></label>
+				<select id="emails" name="emails">
+				  <option value="default">- - - Selecciona tu correo - - -</option>
+				  <option value="daniel">daniel.hernandez@emerson.com</option>
+				  <option value="luis">luis.aguilar@emerson.com</option>
+				  <option value="nerit">nerit.paz@emerson.com</option>
+				</select><br><br>
 			</div>
+			<input type="text" id="scan" name="scan"><br><br>
+			<input type="button" value="Enviar a correo" id="saveData"><br><br><br><!--<input type="button" value="Borrar Informacion" id="delete"><br><br><hr><br>-->
 		</form>
 	</div>
-<?php
-	} else {
-		$mensaje = "Reporte de Embarques";
-		$mensaje.= "\nNombre: ". $_POST['']
-	}
-?>	
+	<div class="divTables">
+
+		<div class="divDataWO">
+			<label><b>Piezas por WO</b></label>
+			<table id="dataWO">
+				<thead>
+					<tr>
+						<th><b>WO</b></th>
+						<th><b>Piezas</b></th>
+					</tr>
+				</thead>
+				<tbody id="formatWO">
+				</tbody>
+			</table>
+		</div><br>
+
+		<div class="divTotal">
+			<label><b>Piezas Totales</b></label>
+			<table id="total">
+				<thead>
+					<tr>
+						<th><b>Pallets</b></th>
+						<th><b>Cajas</b></th>
+						<th><b>Piezas</b></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td id="totalPallets"></td>
+						<td id="totalBoxes"></td>
+						<td id="totalPieces"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div><br>
+
+		<div class="divData">
+			<label><b>Piezas por No. Parte</b></label>
+			<table id="dataFormat">
+				<thead>
+					<tr>
+						<th><b>Pallet</b></th>
+						<th><b>No. Parte</b></th>
+						<th><b>Cajas</b></th>
+						<th><b>Cantidad por Caja</b></th>
+						<th><b>Cantidad Total</b></th>
+					</tr>
+				</thead>
+				<tbody id="format">
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	
 </body>
 </html>
