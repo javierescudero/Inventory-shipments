@@ -1,3 +1,8 @@
+<?php
+	if (isset($_POST['saveData'])) {
+
+	}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +24,7 @@
 		var boxes = 1, boxesNP = 1;
 		var partNumb = 0, piecesWO = 0, piecesPN = 0, piecesPNT = 0;
 		var bQ = false, bP = false, bW = false;
+		
 
 		$('#form').submit(function() {
 			var c = $('#scan').val();
@@ -62,7 +68,8 @@
 								if (pN == array_pN[i]) {
 									piecesPN = parseInt(piecesPN) + parseInt(array_Q[i]);
 									boxesNP++;
-								} else {}
+								} else {
+								}
 								piecesPNT = parseInt(piecesPNT) + parseInt(array_Q[i]);
 							};
 						}
@@ -85,7 +92,8 @@
 							for (var i = 0; i < array_WO.length; i++) {
 								if (WO == array_WO[i]) {
 									piecesWO = parseInt(piecesWO) + parseInt(array_Q[i]);
-								} else {}
+								} else {
+								}
 							};
 						}
 					} else {
@@ -97,7 +105,8 @@
 						for (var i = 0; i < array_pN.length; i++) {
 							if (noParte == array_pN[i]) {
 								return i;
-							} else{}
+							} else{
+							}
 						};
 					}
 
@@ -106,7 +115,8 @@
 						for (var i = 0; i < array_pN.length; i++) {
 							if (noParte == array_pN[i]) {
 								cont++;
-							} else{}
+							} else{
+							}
 						};
 						return cont;
 					}
@@ -115,7 +125,8 @@
 						for (var i = 0; i < array_WO.length; i++) {
 							if (wo == array_WO[i]) {
 								return i;
-							} else{}
+							} else{
+							}
 						};
 					}
 
@@ -124,7 +135,8 @@
 						for (var i = 0; i < array_WO.length; i++) {
 							if (wo == array_WO[i]) {
 								cont++;
-							} else{}
+							} else{
+							}
 						};
 						return cont;
 					}
@@ -141,7 +153,8 @@
 							if (WO == array_WO[i]) {
 								document.getElementById('wo_'+posWO+'').innerHTML = array_WO[i];
 								document.getElementById('piezasWO_'+posWO+'').innerHTML = parseInt(piecesWO);
-							} else {}
+							} else {
+							}
 						}
 					};
 
@@ -171,6 +184,48 @@
 			return false;
 		});
 
+		$('#linkSend').click(function(){
+			var email = document.getElementById('emails').value;
+			var rows_dataWO = document.getElementById("dataWO").rows.length;
+			var rows_total = document.getElementById("total").rows.length;
+			var rows_dataFormat = document.getElementById("dataFormat").rows.length;
+
+			//var row_col = document.getElementById("dataWO").rows[0].cells.length;
+			//var y = document.getElementById("dataWO").rows[0].cells[0].innerHTML;
+			
+			var href = "sendmail.php?email="+email+"&";
+			var t1;
+			if (email == 'default') {
+				alert('Elige un correo...');
+				return false;
+			} else {
+				
+				//Tabla 1
+				for (var i = 1; i < rows_dataWO; i++) {
+					alert('i: '+i);
+					for (var j = 0; j < 2; j++) {
+						alert('j: '+j);
+						var data1 = document.getElementById("dataWO").rows[i].cells[j].innerHTML;
+						alert('row: '+ i + 'col: '+ j);
+						t1 = "wo_"+i+"="+data1+"&piezasWO_"+j+"="+data1+"&";
+					};
+					//t1 = "wo_"+i+"="+data1+"&piezasWO_"+j+"="+data1+"&";
+					href = href.concat(t1);
+					alert('href: '+href);
+				}
+
+				//Tabla 2
+				/*var pt2 = document.getElementById('totalPallets').value;
+				var ct2 = document.getElementById('totalBoxes').value;
+				var pzt2 = document.getElementById('totalPieces').value;
+				var t2 = "totalPallets="+pt2+"&totalBoxes="+ct2+"&totalPieces="+pzt2+"&";*/
+
+				//Tabla 3
+
+				document.getElementById('linkSend').href = href;
+			}
+		});
+
 		/*function toJSONLocal (date) {
 		    var local = new Date(date);
 		    local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
@@ -181,29 +236,28 @@
 		document.getElementById('date').innerHTML = today;*/
 	});
 </script>
-
 <body>
 	<div class="form">
-		<form>
+		<form id="form">
 			<h1>REPORTE DE EMBARQUES</h1>
 			<!--<div id="divDate">
 				<label id="date"></label>
 			</div><br><br>-->
 			<div class="correo">
 				<label><b>Enviar formato a: </b></label>
-				<select id="emails">
-				  <option value="default">- - - Selecciona Tu Correo - - -</option>
+				<select id="emails" name="emails">
+				  <option value="default">- - - Selecciona tu correo - - -</option>
 				  <option value="daniel">daniel.hernandez@emerson.com</option>
 				  <option value="luis">luis.aguilar@emerson.com</option>
 				  <option value="nerit">nerit.paz@emerson.com</option>
 				</select><br><br>
 			</div>
-			<input type="text" id="scan"><br><br><br>
-	
+			<input type="text" id="scan" name="scan"><br><br>
+			<a href="" id="linkSend">Enviar a correo</a><br><br><br>
+		
 			<div class="divTables">
 
 				<div class="divDataWO">
-					<!--<label><b>Piezas por WO</b></label>-->
 					<table id="dataWO">
 						<thead>
 							<tr>
@@ -217,7 +271,6 @@
 				</div><br>
 
 				<div class="divTotal">
-					<!--<label><b>Piezas Totales</b></label>-->
 					<table id="total">
 						<thead>
 							<tr>
@@ -237,7 +290,6 @@
 				</div><br>
 
 				<div class="divData">
-					<!--<label><b>Piezas por No. Parte</b></label>-->
 					<table id="dataFormat">
 						<thead>
 							<tr>
@@ -252,7 +304,6 @@
 						</tbody>
 					</table>
 				</div>
-
 			</div>
 		</form>
 	</div>
