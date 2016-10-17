@@ -194,7 +194,7 @@
 			//var y = document.getElementById("dataWO").rows[0].cells[0].innerHTML;
 			
 			var href = "sendmail.php?email="+email+"&";
-			var t1;
+			var t1,t2,t3, data1,data3;
 			if (email == 'default') {
 				alert('Elige un correo...');
 				return false;
@@ -202,25 +202,28 @@
 				
 				//Tabla 1
 				for (var i = 1; i < rows_dataWO; i++) {
-					alert('i: '+i);
 					for (var j = 0; j < 2; j++) {
-						alert('j: '+j);
-						var data1 = document.getElementById("dataWO").rows[i].cells[j].innerHTML;
-						alert('row: '+ i + 'col: '+ j);
-						t1 = "wo_"+i+"="+data1+"&piezasWO_"+j+"="+data1+"&";
+						data1 = document.getElementById("dataWO").rows[i].cells[j].innerHTML;
+						t1 = "wo_"+i+"="+data1+"&piezasWO_"+i+"="+data1;
 					};
-					//t1 = "wo_"+i+"="+data1+"&piezasWO_"+j+"="+data1+"&";
 					href = href.concat(t1);
-					alert('href: '+href);
 				}
 
 				//Tabla 2
-				/*var pt2 = document.getElementById('totalPallets').value;
-				var ct2 = document.getElementById('totalBoxes').value;
-				var pzt2 = document.getElementById('totalPieces').value;
-				var t2 = "totalPallets="+pt2+"&totalBoxes="+ct2+"&totalPieces="+pzt2+"&";*/
+				var tPall = document.getElementById('totalPallets').innerHTML;
+				var tBoxes = document.getElementById('totalBoxes').innerHTML;
+				var tPieces = document.getElementById('totalPieces').innerHTML;
+				t2 = "&totalPallets="+tPall+"&tBoxes="+tBoxes+"&totalPieces="+tPieces+"";
+				href = href.concat(t2);
 
 				//Tabla 3
+				for (var i = 1; i < rows_dataFormat; i++) {
+					for (var j = 0; j < 5; j++) {
+						data3 = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
+						t3 = "&pallet_"+i+"="+data3+"&parte_"+i+"="+data3+"&boxes_"+i+"="+data3+"&cantidad_"+i+"="+data3+"&piezas_"+i+"="+data3+"";
+					};
+					href = href.concat(t3);
+				}
 
 				document.getElementById('linkSend').href = href;
 			}
