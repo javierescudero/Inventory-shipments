@@ -23,16 +23,14 @@ thead { background-color: #00cc99; }
 .divTotal {
 	width: 15%;
 	float: left;
-	margin-left: 0;
+	margin-left: 3%;
 	margin-top: -20px;
 }
 
 .divData {
-	float: left;
-	margin-left: 5%;
+	float: right;
 	margin-top: -40px;
 }
-
 
 table {
 	border: 5px solid #00cc99;

@@ -62,8 +62,7 @@
 								if (pN == array_pN[i]) {
 									piecesPN = parseInt(piecesPN) + parseInt(array_Q[i]);
 									boxesNP++;
-								} else {
-								}
+								} else {}
 								piecesPNT = parseInt(piecesPNT) + parseInt(array_Q[i]);
 							};
 						}
@@ -86,8 +85,7 @@
 							for (var i = 0; i < array_WO.length; i++) {
 								if (WO == array_WO[i]) {
 									piecesWO = parseInt(piecesWO) + parseInt(array_Q[i]);
-								} else {
-								}
+								} else {}
 							};
 						}
 					} else {
@@ -99,8 +97,7 @@
 						for (var i = 0; i < array_pN.length; i++) {
 							if (noParte == array_pN[i]) {
 								return i;
-							} else{
-							}
+							} else{}
 						};
 					}
 
@@ -109,8 +106,7 @@
 						for (var i = 0; i < array_pN.length; i++) {
 							if (noParte == array_pN[i]) {
 								cont++;
-							} else{
-							}
+							} else{}
 						};
 						return cont;
 					}
@@ -119,8 +115,7 @@
 						for (var i = 0; i < array_WO.length; i++) {
 							if (wo == array_WO[i]) {
 								return i;
-							} else{
-							}
+							} else{}
 						};
 					}
 
@@ -129,8 +124,7 @@
 						for (var i = 0; i < array_WO.length; i++) {
 							if (wo == array_WO[i]) {
 								cont++;
-							} else{
-							}
+							} else{}
 						};
 						return cont;
 					}
@@ -147,8 +141,7 @@
 							if (WO == array_WO[i]) {
 								document.getElementById('wo_'+posWO+'').innerHTML = array_WO[i];
 								document.getElementById('piezasWO_'+posWO+'').innerHTML = parseInt(piecesWO);
-							} else {
-							}
+							} else {}
 						}
 					};
 
@@ -178,8 +171,6 @@
 			return false;
 		});
 
-		
-
 		/*function toJSONLocal (date) {
 		    var local = new Date(date);
 		    local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
@@ -193,79 +184,77 @@
 
 <body>
 	<div class="form">
-		<form action="sendmail.php" method="post">
+		<form>
 			<h1>REPORTE DE EMBARQUES</h1>
 			<!--<div id="divDate">
 				<label id="date"></label>
 			</div><br><br>-->
 			<div class="correo">
 				<label><b>Enviar formato a: </b></label>
-				<select id="emails" name="emails">
+				<select id="emails">
 				  <option value="default">- - - Selecciona Tu Correo - - -</option>
 				  <option value="daniel">daniel.hernandez@emerson.com</option>
 				  <option value="luis">luis.aguilar@emerson.com</option>
 				  <option value="nerit">nerit.paz@emerson.com</option>
 				</select><br><br>
 			</div>
-			<input type="submit" value="Enviar a correo" id="saveData" name="saveData"><br><br><br>
+			<input type="text" id="scan"><br><br><br>
+	
+			<div class="divTables">
+
+				<div class="divDataWO">
+					<!--<label><b>Piezas por WO</b></label>-->
+					<table id="dataWO">
+						<thead>
+							<tr>
+								<th><b>WO</b></th>
+								<th><b>Piezas</b></th>
+							</tr>
+						</thead>
+						<tbody id="formatWO">
+						</tbody>
+					</table>
+				</div><br>
+
+				<div class="divTotal">
+					<!--<label><b>Piezas Totales</b></label>-->
+					<table id="total">
+						<thead>
+							<tr>
+								<th><b>Pallets</b></th>
+								<th><b>Cajas</b></th>
+								<th><b>Piezas</b></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td id="totalPallets"></td>
+								<td id="totalBoxes"></td>
+								<td id="totalPieces"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div><br>
+
+				<div class="divData">
+					<!--<label><b>Piezas por No. Parte</b></label>-->
+					<table id="dataFormat">
+						<thead>
+							<tr>
+								<th><b>Pallet</b></th>
+								<th><b>No. Parte</b></th>
+								<th><b>Cajas</b></th>
+								<th><b>Cantidad por Caja</b></th>
+								<th><b>Cantidad Total</b></th>
+							</tr>
+						</thead>
+						<tbody id="format">
+						</tbody>
+					</table>
+				</div>
+
+			</div>
 		</form>
 	</div>
-	<form id="form">
-	
-	<input type="text" id="scan" name="scan"><br><br>
-		<div class="divTables">
-
-			<div class="divDataWO">
-				<label><b>Piezas por WO</b></label>
-				<table id="dataWO">
-					<thead>
-						<tr>
-							<th><b>WO</b></th>
-							<th><b>Piezas</b></th>
-						</tr>
-					</thead>
-					<tbody id="formatWO">
-					</tbody>
-				</table>
-			</div><br>
-
-			<div class="divTotal">
-				<label><b>Piezas Totales</b></label>
-				<table id="total">
-					<thead>
-						<tr>
-							<th><b>Pallets</b></th>
-							<th><b>Cajas</b></th>
-							<th><b>Piezas</b></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td id="totalPallets"></td>
-							<td id="totalBoxes"></td>
-							<td id="totalPieces"></td>
-						</tr>
-					</tbody>
-				</table>
-			</div><br>
-
-			<div class="divData">
-				<label><b>Piezas por No. Parte</b></label>
-				<table id="dataFormat">
-					<thead>
-						<tr>
-							<th><b>Pallet</b></th>
-							<th><b>No. Parte</b></th>
-							<th><b>Cajas</b></th>
-							<th><b>Cantidad por Caja</b></th>
-							<th><b>Cantidad Total</b></th>
-						</tr>
-					</thead>
-					<tbody id="format">
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</form>
 </body>
 </html>
