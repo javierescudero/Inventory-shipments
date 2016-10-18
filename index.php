@@ -190,9 +190,6 @@
 			var rows_dataWO = document.getElementById("dataWO").rows.length;
 			var rows_total = document.getElementById("total").rows.length;
 			var rows_dataFormat = document.getElementById("dataFormat").rows.length;
-
-			//var row_col = document.getElementById("dataWO").rows[0].cells.length;
-			//var y = document.getElementById("dataWO").rows[0].cells[0].innerHTML;
 			
 			var href = "sendmail.php?email="+email+"&";
 			var t1,t2,t3,pz,cwo,cp,cnp,cc,ccxc,cct;
@@ -217,16 +214,18 @@
 							pz = document.getElementById("dataWO").rows[i].cells[j].innerHTML;
 						}
 					};
-					t1 = "wo_"+i+"="+cwo+"&piezasWO_"+i+"="+pz+"&";
+					t1 = "tabla1=<td>"+cwo+"</td><td>"+pz+"</td>";
 					href = href.concat(t1);
+					href = href.concat('&');
 				}
 
 				//Tabla 2
 				var tPall = document.getElementById('totalPallets').innerHTML;
 				var tBoxes = document.getElementById('totalBoxes').innerHTML;
 				var tPieces = document.getElementById('totalPieces').innerHTML;
-				t2 = "totalPallets="+tPall+"&tBoxes="+tBoxes+"&totalPieces="+tPieces+"&";
+				t2 = "tabla2=<td>"+tPall+"</td><td>"+tBoxes+"</td><td>"+tPieces+"</td>";
 				href = href.concat(t2);
+				href = href.concat('&');
 
 				//Tabla 3
 				for (var i = 1; i < rows_dataFormat; i++) {
@@ -246,9 +245,10 @@
 						if (j==4) {
 							cct = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
 						}
-						t3 = "pallet_"+i+"="+cp+"&parte_"+i+"="+cnp+"&boxes_"+i+"="+cc+"&cantidad_"+i+"="+ccxc+"&piezas_"+i+"="+cct+"&";
+						t3 = "tabla3=<td>"+cp+"</td><td>"+cnp+"</td><td>"+cc+"</td><td>"+ccxc+"</td><td>"+cct+"</td>";
 					};
 					href = href.concat(t3);
+					href = href.concat('&');
 				}
 
 				document.getElementById('linkSend').href = href;
