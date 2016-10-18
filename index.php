@@ -45,13 +45,13 @@
 					}
 				} if (c.charAt(0) == 'Q') {
 					var Q = c.substring(1);
-					Q.replace(/0/,'');
 					array_Q.push(Q);
 					$('#scan').val('');
 					bQ = true;
 				}
 				else if (c.charAt(0) == 'P') {
 					pN = c.substring(1);
+					pN = pN.replace(/'/g,' ');
 					$('#scan').val('');
 					if (bQ == true) {
 						bP = true;
@@ -79,6 +79,7 @@
 
 				} else if (c.charAt(0) == 'W') {
 					var WO = c.substring(1);
+					WO = WO.replace(/0/,'');
 					$('#scan').val('');
 					if (bP == true) {
 						bQ = false;
@@ -194,18 +195,29 @@
 			//var y = document.getElementById("dataWO").rows[0].cells[0].innerHTML;
 			
 			var href = "sendmail.php?email="+email+"&";
-			var t1,t2,t3, data1,data3;
+			var t1,t2,t3,pz,cwo,cp,cnp,cc,ccxc,cct;
 			if (email == 'default') {
 				alert('Elige un correo...');
+				return false;
+			} if (array_pallet[0] == null || array_Q[0] == null || array_pN[0] == null || array_WO[0] == null) {
+				alert('Datos incompletos..');
+				array_pallet[0].pop();
+				array_Q[0].pop();
+				array_pN[0].pop();
+				array_WO[0].pop();
 				return false;
 			} else {
 				
 				//Tabla 1
 				for (var i = 1; i < rows_dataWO; i++) {
 					for (var j = 0; j < 2; j++) {
-						data1 = document.getElementById("dataWO").rows[i].cells[j].innerHTML;
-						t1 = "wo_"+i+"="+data1+"&piezasWO_"+i+"="+data1;
+						if (j==0) {
+							cwo = document.getElementById("dataWO").rows[i].cells[j].innerHTML;
+						} else {
+							pz = document.getElementById("dataWO").rows[i].cells[j].innerHTML;
+						}
 					};
+					t1 = "wo_"+i+"="+cwo+"&piezasWO_"+i+"="+pz+"&";
 					href = href.concat(t1);
 				}
 
@@ -213,14 +225,28 @@
 				var tPall = document.getElementById('totalPallets').innerHTML;
 				var tBoxes = document.getElementById('totalBoxes').innerHTML;
 				var tPieces = document.getElementById('totalPieces').innerHTML;
-				t2 = "&totalPallets="+tPall+"&tBoxes="+tBoxes+"&totalPieces="+tPieces+"";
+				t2 = "totalPallets="+tPall+"&tBoxes="+tBoxes+"&totalPieces="+tPieces+"&";
 				href = href.concat(t2);
 
 				//Tabla 3
 				for (var i = 1; i < rows_dataFormat; i++) {
 					for (var j = 0; j < 5; j++) {
-						data3 = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
-						t3 = "&pallet_"+i+"="+data3+"&parte_"+i+"="+data3+"&boxes_"+i+"="+data3+"&cantidad_"+i+"="+data3+"&piezas_"+i+"="+data3+"";
+						if (j==0) {
+							cp = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
+						}
+						if (j==1) {
+							cnp = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
+						}
+						if (j==2) {
+							cc = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
+						}
+						if (j==3) {
+							ccxc = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
+						}
+						if (j==4) {
+							cct = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
+						}
+						t3 = "pallet_"+i+"="+cp+"&parte_"+i+"="+cnp+"&boxes_"+i+"="+cc+"&cantidad_"+i+"="+ccxc+"&piezas_"+i+"="+cct+"&";
 					};
 					href = href.concat(t3);
 				}
@@ -250,9 +276,12 @@
 				<label><b>Enviar formato a: </b></label>
 				<select id="emails" name="emails">
 				  <option value="default">- - - Selecciona tu correo - - -</option>
-				  <option value="daniel">daniel.hernandez@emerson.com</option>
+				  <option value="javier">javier.escudero@emerson.com</option>
+				  <option value="omar">omar.guerrero@emerson.com</option>
+				  <option value="sergio">sergio.morales@emerson.com</option>
+				  <!--<option value="daniel">daniel.hernandez@emerson.com</option>
 				  <option value="luis">luis.aguilar@emerson.com</option>
-				  <option value="nerit">nerit.paz@emerson.com</option>
+				  <option value="nerit">nerit.paz@emerson.com</option>-->
 				</select><br><br>
 			</div>
 			<input type="text" id="scan" name="scan"><br><br>
