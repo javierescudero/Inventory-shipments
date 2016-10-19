@@ -1,9 +1,3 @@
-<?php
-	if (isset($_POST['saveData'])) {
-
-	}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -193,6 +187,9 @@
 			
 			var href = "sendmail.php?email="+email+"&";
 			var t1,t2,t3,pz,cwo,cp,cnp,cc,ccxc,cct;
+			var tab1 = "tabla1=";
+			var tab2 = "&tabla2=";
+			var tab3 = "&tabla3=";
 			if (email == 'default') {
 				alert('Elige un correo...');
 				return false;
@@ -206,6 +203,7 @@
 			} else {
 				
 				//Tabla 1
+				href = href.concat(tab1);
 				for (var i = 1; i < rows_dataWO; i++) {
 					for (var j = 0; j < 2; j++) {
 						if (j==0) {
@@ -214,20 +212,20 @@
 							pz = document.getElementById("dataWO").rows[i].cells[j].innerHTML;
 						}
 					};
-					t1 = "tabla1=<td>"+cwo+"</td><td>"+pz+"</td>";
+					t1 = "<tr><td>"+cwo+"</td><td>"+pz+"</td></tr>";
 					href = href.concat(t1);
-					href = href.concat('&');
 				}
 
 				//Tabla 2
+				href = href.concat(tab2);
 				var tPall = document.getElementById('totalPallets').innerHTML;
 				var tBoxes = document.getElementById('totalBoxes').innerHTML;
 				var tPieces = document.getElementById('totalPieces').innerHTML;
-				t2 = "tabla2=<td>"+tPall+"</td><td>"+tBoxes+"</td><td>"+tPieces+"</td>";
+				t2 = "<tr><td>"+tPall+"</td><td>"+tBoxes+"</td><td>"+tPieces+"</td></tr>";
 				href = href.concat(t2);
-				href = href.concat('&');
 
 				//Tabla 3
+				href = href.concat(tab3);
 				for (var i = 1; i < rows_dataFormat; i++) {
 					for (var j = 0; j < 5; j++) {
 						if (j==0) {
@@ -245,10 +243,9 @@
 						if (j==4) {
 							cct = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
 						}
-						t3 = "tabla3=<td>"+cp+"</td><td>"+cnp+"</td><td>"+cc+"</td><td>"+ccxc+"</td><td>"+cct+"</td>";
+						t3 = "<tr><td>"+cp+"</td><td>"+cnp+"</td><td>"+cc+"</td><td>"+ccxc+"</td><td>"+cct+"</td></tr>";
 					};
 					href = href.concat(t3);
-					href = href.concat('&');
 				}
 
 				document.getElementById('linkSend').href = href;
