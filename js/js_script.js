@@ -174,7 +174,7 @@ $(document).ready(function(){
 			var rows_total = document.getElementById("total").rows.length;
 			var rows_dataFormat = document.getElementById("dataFormat").rows.length;
 			
-			var href = "sendmail.php?email="+email+"&";
+			var href = "php/sendmail.php?email="+email+"&";
 			var t1,t2,t3,pz,cwo,cp,cnp,cc,ccxc,cct;
 			var tab1 = "tabla1=";
 			var tab2 = "&tabla2=";
