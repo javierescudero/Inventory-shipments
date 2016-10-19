@@ -13,13 +13,19 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css"> 
 	<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css">
 </head>
+<script type="text/javascript">
+$(document).ready(function(){
+
+});
+</script>
 <body>
-	<div data-role="page">
+	<div data-role="page" id="page">
 		<form id="form">
 			<div data-role="header">
 				<h1>REPORTE DE EMBARQUES</h1>
 			</div>
-			<div data-role="content">
+
+			<div data-role="content" id="content">
 				<div data-role="fieldcontain">
 					<!--<label for="emails"><b>Enviar formato a: </b></label>-->
 					<select id="emails" name="emails">
@@ -83,6 +89,9 @@
 						</table>
 					</div>
 				</div>
+			</div>
+			<div data-role="footer">
+				<h1>PIE DE PAGINA</h1>
 			</div>
 		</form>
 	</div>
