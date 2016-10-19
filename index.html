@@ -3,11 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
 	<title>Inventory Shipments</title>
+	
 	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile-1.4.5.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css">
 </head>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 
@@ -142,7 +147,7 @@
 					//Piezas por WO
 					for (var i = 0; i < array_WO.length; i++) {
 						if (contWO == 1) {
-							$('#formatWO').append('<tr><td id="wo_'+posWO+'">'+array_WO[x]+'</td><td id="piezasWO_'+posWO+'">'+parseInt(piecesWO)+'</td></tr>');
+							$('#formatWO').append('<tr><td class="ui-responsive ui-shadow" id="wo_'+posWO+'">'+array_WO[x]+'</td><td class="ui-responsive ui-shadow" id="piezasWO_'+posWO+'">'+parseInt(piecesWO)+'</td></tr>');
 							contWO++;
 						} else {
 							if (WO == array_WO[i]) {
@@ -156,7 +161,7 @@
 					//Contidad por numero de parte
 					for (var i = 0; i < array_pN.length; i++) {
 						if (cont == 1) {
-							$('#format').append('<tr><td id="pallet_'+pos+'">'+array_pallet[pall]+'</td><td id="parte_'+pos+'">'+array_pN[x]+'</td><td id="boxes_'+pos+'">'+boxesNP+'</td><td id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');
+							$('#format').append('<tr><td class="ui-responsive ui-shadow" id="pallet_'+pos+'">'+array_pallet[pall]+'</td><td class="ui-responsive ui-shadow" id="parte_'+pos+'">'+array_pN[x]+'</td><td class="ui-responsive ui-shadow" id="boxes_'+pos+'">'+boxesNP+'</td><td class="ui-responsive ui-shadow" id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td class="ui-responsive ui-shadow" id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');
 							cont++;
 						} else {
 							if (pN == array_pN[i]) {
@@ -251,87 +256,78 @@
 				document.getElementById('linkSend').href = href;
 			}
 		});
-
-		/*function toJSONLocal (date) {
-		    var local = new Date(date);
-		    local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-		    return local.toJSON().slice(0, 10);
-		}
-
-		var today = new Date().toISOString().slice(0, 10);
-		document.getElementById('date').innerHTML = today;*/
 	});
 </script>
+
 <body>
-	<div class="form">
+	<div data-role="page">
 		<form id="form">
-			<h1>REPORTE DE EMBARQUES</h1>
-			<!--<div id="divDate">
-				<label id="date"></label>
-			</div><br><br>-->
-			<div class="correo">
-				<label><b>Enviar formato a: </b></label>
-				<select id="emails" name="emails">
-				  <option value="default">- - - Selecciona tu correo - - -</option>
-				  <option value="javier">javier.escudero@emerson.com</option>
-				  <option value="omar">omar.guerrero@emerson.com</option>
-				  <option value="sergio">sergio.morales@emerson.com</option>
-				  <!--<option value="daniel">daniel.hernandez@emerson.com</option>
-				  <option value="luis">luis.aguilar@emerson.com</option>
-				  <option value="nerit">nerit.paz@emerson.com</option>-->
-				</select><br><br>
+			<div data-role="header">
+				<h1>REPORTE DE EMBARQUES</h1>
 			</div>
-			<input type="text" id="scan" name="scan"><br><br>
-			<a href="" id="linkSend">Enviar a correo</a><br><br><br>
-		
-			<div class="divTables">
+			<div data-role="content">
+				<div data-role="fieldcontain">
+					<!--<label for="emails"><b>Enviar formato a: </b></label>-->
+					<select id="emails" name="emails">
+					  <option value="default">- - - Selecciona tu correo - - -</option>
+					  <option value="javier">javier.escudero@emerson.com</option>
+					  <option value="omar">omar.guerrero@emerson.com</option>
+					  <option value="sergio">sergio.morales@emerson.com</option>
+					  <!--<option value="daniel">daniel.hernandez@emerson.com</option>
+					  <option value="luis">luis.aguilar@emerson.com</option>
+					  <option value="nerit">nerit.paz@emerson.com</option>-->
+					</select><br>
+				</div>
+				<input type="text" id="scan" name="scan"><br>
+				<a href="" data-role="button" id="linkSend">Enviar a correo</a><br>
+				<div class="divTables">
+					<div class="divDataWO">
+						<table id="dataWO" data-role="table" class="ui-responsive ui-shadow">
+							<thead class="ui-responsive ui-shadow">
+								<tr>
+									<th class="ui-responsive ui-shadow"><b>WO</b></th>
+									<th class="ui-responsive ui-shadow"><b>Piezas</b></th>
+								</tr>
+							</thead>
+							<tbody id="formatWO">
+							</tbody>
+						</table>
+					</div><br>
 
-				<div class="divDataWO">
-					<table id="dataWO">
-						<thead>
-							<tr>
-								<th><b>WO</b></th>
-								<th><b>Piezas</b></th>
-							</tr>
-						</thead>
-						<tbody id="formatWO">
-						</tbody>
-					</table>
-				</div><br>
+					<div class="divTotal">
+						<table id="total" data-role="table" class="ui-responsive ui-shadow">
+							<thead class="ui-responsive ui-shadow">
+								<tr>
+									<th class="ui-responsive ui-shadow"><b>Pallets</b></th>
+									<th class="ui-responsive ui-shadow"><b>Cajas</b></th>
+									<th class="ui-responsive ui-shadow"><b>Piezas</b></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td id="totalPallets" class="ui-responsive ui-shadow"></td>
+									<td id="totalBoxes" class="ui-responsive ui-shadow"></td>
+									<td id="totalPieces" class="ui-responsive ui-shadow"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div><br>
 
-				<div class="divTotal">
-					<table id="total">
-						<thead>
-							<tr>
-								<th><b>Pallets</b></th>
-								<th><b>Cajas</b></th>
-								<th><b>Piezas</b></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td id="totalPallets"></td>
-								<td id="totalBoxes"></td>
-								<td id="totalPieces"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div><br>
-
-				<div class="divData">
-					<table id="dataFormat">
-						<thead>
-							<tr>
-								<th><b>Pallet</b></th>
-								<th><b>No. Parte</b></th>
-								<th><b>Cajas</b></th>
-								<th><b>Cantidad por Caja</b></th>
-								<th><b>Cantidad Total</b></th>
-							</tr>
-						</thead>
-						<tbody id="format">
-						</tbody>
-					</table>
+					<div class="divData">
+						<table id="dataFormat" data-role="table" class="ui-responsive ui-shadow">
+							<thead class="ui-responsive ui-shadow">
+								<tr>
+									<th class="ui-responsive ui-shadow" style="width: 20%;"><b>Pallet</b></th>
+									<th class="ui-responsive ui-shadow" style="width: 30%;"><b>No. Parte</b></th>
+									<th class="ui-responsive ui-shadow"><b>Cajas</b></th>
+									<th class="ui-responsive ui-shadow"><b>Cantidad por Caja</b></th>
+									<th class="ui-responsive ui-shadow"><b>Cantidad Total</b></th>
+								</tr>
+							</thead>
+							<tbody id="format">
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</form>

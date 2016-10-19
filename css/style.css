@@ -1,46 +1,22 @@
-body {
-	width: 95%;
-	background-color: #00cc99;
-}
-
-thead { background-color: #00cc99; }
-
-.divData {
-	width: 40%;
-	height: 400px;
-	overflow-x: hidden;
-}
-
-.form { text-align: center; }
 
 .divDataWO {
-	width: 15%;
+	width: 17%;
 	float: left;
-	margin-left: 20%;
-	
+	margin-left: 1%;
 }
 
 .divTotal {
 	width: 15%;
 	float: left;
-	margin-left: 3%;
+	margin-left: 4%;
 	margin-top: -20px;
 }
 
 .divData {
-	float: right;
+	width: 50%;
+	height: 400px;
+	float: left;
+	margin-left: 7%;
 	margin-top: -40px;
+	overflow-x: hidden;
 }
-
-table {
-	border: 5px solid #00cc99;
-	border-style: inset;
-	background-color: white;
-	border-collapse: collapse;
-}
-
-thead, tbody, td, tr { border: 1px solid black; }
-
-#divDate { float: right; }
-
-label { background-color: #339966; }

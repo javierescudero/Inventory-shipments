@@ -17,7 +17,7 @@ if (isset($email)) {
     //$para = "nerit.paz@emerson.com";
   }
 
-  $titulo = "PRUEBAS EMAIL - REPORTE DE EMBARQUES";
+  $titulo = "PRUEBAS EMAIL - REPORTE DE EMBARQUES - JQuery Mobile";
 
   $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
   $cabeceras .= 'Content-type: text/html; charset="utf-8"' . "\r\n";
