@@ -27,7 +27,7 @@
 
 		$('#form').submit(function() {
 			var c = $('#scan').val();
-				if (c.charAt(0) == 'T') {
+				if (c.charAt(0) == 'T' || c.charAt(0) == 't') {
 					var pallet = c.substring(1);
 					$('#scan').val('');
 					if (array_pallet[0] == null) {
@@ -42,13 +42,13 @@
 							pall++;
 						}
 					}
-				} if (c.charAt(0) == 'Q') {
+				} if (c.charAt(0) == 'Q' || c.charAt(0) == 'q') {
 					var Q = c.substring(1);
 					array_Q.push(Q);
 					$('#scan').val('');
 					bQ = true;
 				}
-				else if (c.charAt(0) == 'P') {
+				else if (c.charAt(0) == 'P' || c.charAt(0) == 'p') {
 					pN = c.substring(1);
 					pN = pN.replace(/'/g,' ');
 					$('#scan').val('');
@@ -76,7 +76,7 @@
 						alert('WARNING:\nDebes escanear primero la cantidad.');
 					}
 
-				} else if (c.charAt(0) == 'W') {
+				} else if (c.charAt(0) == 'W' || c.charAt(0) == 'w') {
 					var WO = c.substring(1);
 					WO = WO.replace(/0/,'');
 					$('#scan').val('');
