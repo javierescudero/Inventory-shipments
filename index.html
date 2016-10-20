@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	
 	<title>Inventory Shipments</title>
 	
@@ -26,9 +27,10 @@ $(document).ready(function(){
 			</div>
 
 			<div data-role="content" id="content">
-				<div data-role="fieldcontain">
+				
+				<div data-role="fieldcontain" id="divEmails">
 					<!--<label for="emails"><b>Enviar formato a: </b></label>-->
-					<select id="emails" name="emails">
+					<select id="emails" name="emails" data-native-menu="false">
 					  <option value="default">- - - Selecciona tu correo - - -</option>
 					  <option value="javier">javier.escudero@emerson.com</option>
 					  <option value="omar">omar.guerrero@emerson.com</option>
@@ -40,6 +42,7 @@ $(document).ready(function(){
 				</div>
 				<input type="text" id="scan" name="scan"><br>
 				<a href="" data-role="button" id="linkSend">Enviar a correo</a><br>
+
 				<div class="divTables">
 					<div class="divDataWO">
 						<table id="dataWO" data-role="table" class="ui-responsive ui-shadow">

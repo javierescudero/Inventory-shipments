@@ -77,11 +77,10 @@ if (isset($email)) {
     </html>';
 
   if(mail($para, $titulo, $mensaje, $cabeceras)) {
-    echo "<button>algo</button>";
-    echo "<script>alert('Correo Enviado :)');</script>";
+    echo "<script>alert('Correo Enviado :D');</script>";
     echo "<script>window.location.href='../index.html'</script>";
   } else {
-    echo "<script>alert('ERROR: No se envio el correo :(');</script>";
+    echo "<script>alert('ERROR: No se envio el correo D:');</script>";
   }
 }
 

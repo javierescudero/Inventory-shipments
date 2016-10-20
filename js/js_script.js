@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+	/*$(document).on( "mobileinit", function() {
+  		$.mobile.selectmenu.prototype.options.nativeMenu = false;
+	});*/
+
 		$('#scan').focus();
 
 		var array_pallet = new Array(), array_Q = new Array(), array_pN = new Array(), array_WO = new Array();
