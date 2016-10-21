@@ -17,6 +17,7 @@ $(document).ready(function(){
 			var c = $('#scan').val();
 				if (c.charAt(0) == 'T' || c.charAt(0) == 't') {
 					var pallet = c.substring(1);
+					pallet = pallet.toUpperCase();
 					$('#scan').val('');
 					if (array_pallet[0] == null) {
 						array_pallet.push(pallet);
@@ -39,6 +40,7 @@ $(document).ready(function(){
 				else if (c.charAt(0) == 'P' || c.charAt(0) == 'p') {
 					pN = c.substring(1);
 					pN = pN.replace(/'/g,' ');
+					pN = pN.toUpperCase();
 					$('#scan').val('');
 					if (bQ == true) {
 						bP = true;
@@ -66,6 +68,7 @@ $(document).ready(function(){
 
 				} else if (c.charAt(0) == 'W' || c.charAt(0) == 'w') {
 					var WO = c.substring(1);
+					WO = c.toUpperCase();
 					WO = WO.replace(/0/,'');
 					$('#scan').val('');
 					if (bP == true) {
@@ -129,6 +132,7 @@ $(document).ready(function(){
 						return cont;
 					}
 
+					var ctpxc = totalPiezasxCaja();
 					var pos = buscarNP(pN), cont = contarNP(pN);
 					var posWO = buscarWO(WO), contWO = contarWO(WO);
 
