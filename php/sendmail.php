@@ -10,7 +10,7 @@ $tabla3 = $_GET["tabla3"];
 
 if (isset($email)) {
   if ($email == "javier") {
-    $para = "javier.escudero@emerson.com";
+    $para = "j.escudero.g@hotmail.com";
     //$para = "daniel.hernandez@emerson.com";
   } elseif ($email == "omar") {
     $para = "omar.guerrero@emerson.com";
