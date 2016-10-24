@@ -19,6 +19,7 @@ $(document).ready(function(){
 					array_pallet.push(pallet);
 				} else {
 					var index = array_pallet.indexOf(pallet);
+					array_pallet.push(pallet);
 					if (index > -1) {
 						alert('This pallet number already exists\nTry with other pallet number');
 						return false;
@@ -82,6 +83,7 @@ $(document).ready(function(){
 							}
 						};
 					}
+					alert('Tamaño de array_pallet = ' + array_pallet.length);
 				} else {
 					alert('WARNING:\nDebes escanear primero el numero de parte.');
 					return false;
@@ -127,8 +129,45 @@ $(document).ready(function(){
 					return cont;
 				}
 
+				function buscarPall(pall){
+					for (var i = 0; i < array_pallet.length; i++) {
+						if (noParte == array_pallet[i]) {
+							return i;
+						} else{
+						}
+					};
+				}
+
+				function contarPall(noParte) {
+					var posNP, tar, tam_array;
+					var array_findedPall = new Array();
+
+					for (var i = 0; i < array_pN.length; i++) {
+						alert('i = ' + i);
+						if (noParte == array_pN[i]) {
+							posNP = i;
+							alert('posNP = ' + posNP);
+							for (var j = 0; j < array_pallet.length; j++) {
+								alert('j = ' + j);
+								if (array_pallet[j] == array_pallet[posNP]) {
+									alert('array_pallet[j] = ' + array_pallet[j]);
+									alert('array_pallet[posNP] = ' + array_pallet[posNP]);
+									array_findedPall.push(array_pallet[posNP]);
+								} else {}
+							};
+						} else{}
+						tam_array = array_findedPall.length;
+						alert('tam_array = ' + tam_array);
+						return tam_array;
+					};
+
+				}
+
 				var pos = buscarNP(pN), cont = contarNP(pN);
 				var posWO = buscarWO(WO), contWO = contarWO(WO);
+				var contPall = contarPall(pN)
+
+				alert('contPall = ' + contPall);
 
 				//Piezas por WO
 				for (var i = 0; i < array_WO.length; i++) {
