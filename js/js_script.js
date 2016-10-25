@@ -3,32 +3,33 @@ $(document).ready(function(){
 	$('#scan').focus();
 
 	var array_pallet = new Array(), array_Q = new Array(), array_pN = new Array(), array_WO = new Array();
-	var x = 0, pN, pall = array_pallet.length;
+	var x = 0, pN, pallet, m, pall = array_pallet.length;
 	var boxes = 1, boxesNP = 1;
 	var partNumb = 0, piecesWO = 0, piecesPN = 0, piecesPNT = 0;
 	var bQ = false, bP = false, bW = false;
-	
 
 	$('#form').submit(function() {
 		var c = $('#scan').val();
 			if (c.charAt(0) == 'T' || c.charAt(0) == 't') {
-				var pallet = c.substring(1);
+				pallet = c.substring(1);
 				pallet = pallet.toUpperCase();
 				$('#scan').val('');
 				if (array_pallet[0] == null) {
 					array_pallet.push(pallet);
 				} else {
 					var index = array_pallet.indexOf(pallet);
+					//array_pallet.push(array_pallet[array_pallet.length - 1]);
 					array_pallet.push(pallet);
 					if (index > -1) {
-						alert('This pallet number already exists\nTry with other pallet number');
+						alert('Este numero de pallet ya existe\nIntenta con otro pallet.');
 						return false;
 					} else {
 						array_pallet.push(pallet);
 						pall++;
 					}
 				}
-			} if (c.charAt(0) == 'Q' || c.charAt(0) == 'q') {
+			}
+			if (c.charAt(0) == 'Q' || c.charAt(0) == 'q') {
 				var Q = c.substring(1);
 				array_Q.push(Q);
 				$('#scan').val('');
@@ -83,12 +84,48 @@ $(document).ready(function(){
 							}
 						};
 					}
-					alert('Tamaño de array_pallet = ' + array_pallet.length);
 				} else {
 					alert('WARNING:\nDebes escanear primero el numero de parte.');
 					return false;
 				}
 				
+				//function myFunc(noParte){
+					var cuenta = 0, posicion, valor;
+					for (var i = 0; i < array_pN.length; i++) {
+						if (pN == array_pN[i]) {
+							posicion = i;
+							alert('posicion = ' + posicion);
+							for (var j = 0; j < array_pallet.length; j++) {
+								alert('array_pallet.length = ' + array_pallet.length);
+								if (array_pallet.length == 1) {
+									alert('if (array_pallet.length == 1)');
+									valor = array_pallet[0];
+									alert('valor = ' + valor);
+									alert('cuenta++ = ' + cuenta);
+									cuenta++;
+									alert('cuenta++ = ' + cuenta);
+								} else {
+									alert('array_pallet[j] = ' + array_pallet[j]);
+									if (valor == array_pallet[j]) {
+										alert('if (valor == array_pallet[j])');
+									} else {
+										alert('else cuenta++');
+										alert('valor = ' + valor);
+										cuenta++;
+										alert('valor = ' + valor);
+									}
+								}
+								alert('cuenta for j = ' + cuenta);
+							};
+						} else{
+						}
+					};
+					//return cuenta;
+				//}
+				
+				//var y = myFunc(pN);
+				//alert('y = ' + y);
+
 				function buscarNP(noParte){
 					for (var i = 0; i < array_pN.length; i++) {
 						if (noParte == array_pN[i]) {
@@ -138,36 +175,20 @@ $(document).ready(function(){
 					};
 				}
 
-				function contarPall(noParte) {
-					var posNP, tar, tam_array;
-					var array_findedPall = new Array();
-
-					for (var i = 0; i < array_pN.length; i++) {
-						alert('i = ' + i);
-						if (noParte == array_pN[i]) {
-							posNP = i;
-							alert('posNP = ' + posNP);
-							for (var j = 0; j < array_pallet.length; j++) {
-								alert('j = ' + j);
-								if (array_pallet[j] == array_pallet[posNP]) {
-									alert('array_pallet[j] = ' + array_pallet[j]);
-									alert('array_pallet[posNP] = ' + array_pallet[posNP]);
-									array_findedPall.push(array_pallet[posNP]);
-								} else {}
-							};
-						} else{}
-						tam_array = array_findedPall.length;
-						alert('tam_array = ' + tam_array);
-						return tam_array;
+				function contarPall(pall) {
+					var cont = 0;
+					for (var i = 0; i < array_pallet.length; i++) {
+						if (pallet == array_pallet[i]) {
+							cont++;
+						} else{
+						}
 					};
-
+					return cont;
 				}
 
 				var pos = buscarNP(pN), cont = contarNP(pN);
 				var posWO = buscarWO(WO), contWO = contarWO(WO);
-				var contPall = contarPall(pN)
-
-				alert('contPall = ' + contPall);
+				var contPall = contarPall(pallet);
 
 				//Piezas por WO
 				for (var i = 0; i < array_WO.length; i++) {
