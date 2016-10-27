@@ -18,7 +18,6 @@ $(document).ready(function(){
 					array_pallet.push(pallet);
 				} else {
 					var index = array_pallet.indexOf(pallet);
-					//array_pallet.push(array_pallet[array_pallet.length - 1]);
 					array_pallet.push(pallet);
 					if (index > -1) {
 						alert('Este numero de pallet ya existe\nIntenta con otro pallet.');
@@ -29,102 +28,51 @@ $(document).ready(function(){
 					}
 				}
 			}
-			if (c.charAt(0) == 'Q' || c.charAt(0) == 'q') {
-				var Q = c.substring(1);
-				array_Q.push(Q);
-				$('#scan').val('');
-				bQ = true;
-			}
-			else if (c.charAt(0) == 'P' || c.charAt(0) == 'p') {
+			
+			if (c.charAt(0) == 'P' || c.charAt(0) == 'p') {
 				pN = c.substring(1);
 				pN = pN.replace(/'/g,' ');
 				pN = pN.toUpperCase();
+				array_pN.push(pN);
 				$('#scan').val('');
-				if (bQ == true) {
-					bP = true;
-					if (array_pN[0] == null) {
-						array_pN.push(pN);
-						piecesPN = array_Q[0];
-						piecesPNT = array_Q[0];
-					} else {
-						array_pN.push(pN);
-						piecesPN = 0;
-						piecesPNT = 0;
-						boxesNP = 0;
-						for (var i = 0; i < array_pN.length; i++) {
-							if (pN == array_pN[i]) {
-								piecesPN = parseInt(piecesPN) + parseInt(array_Q[i]);
-								boxesNP++;
-							} else {
-							}
-							piecesPNT = parseInt(piecesPNT) + parseInt(array_Q[i]);
-						};
-					}
+			} else if (c.charAt(0) == 'Q' || c.charAt(0) == 'q') {
+				var Q = c.substring(1);
+				$('#scan').val('');
+				if (array_Q[0] == null) {
+					array_Q.push(Q);
+					piecesPN = parseInt(array_Q[0]);
+					piecesPNT = parseInt(array_Q[0]);
 				} else {
-					alert('WARNING:\nDebes escanear primero la cantidad.');
+					array_Q.push(Q);
+					piecesPN = 0;
+					piecesPNT = 0;
+					boxesNP = 0;
+					for (var i = 0; i < array_pN.length; i++) {
+						if (pN == array_pN[i]) {
+							piecesPN = parseInt(piecesPN) + parseInt(array_Q[i]);
+							boxesNP++;
+						} else {}
+						piecesPNT = parseInt(piecesPNT) + parseInt(array_Q[i]);
+					};
 				}
-
-			} else if (c.charAt(0) == 'W' || c.charAt(0) == 'w') {
+			} 
+			else if (c.charAt(0) == 'W' || c.charAt(0) == 'w') {
 				var WO = c.substring(1);
 				WO = WO.replace(/0/,'');
 				$('#scan').val('');
-				if (bP == true) {
-					bQ = false;
-					bP = false;
-					if (array_WO[0] == null) {
-						array_WO.push(WO);
-						piecesWO = array_Q[0];
-					} else {
-						array_WO.push(WO);
-						piecesWO = 0;
-						for (var i = 0; i < array_WO.length; i++) {
-							if (WO == array_WO[i]) {
-								piecesWO = parseInt(piecesWO) + parseInt(array_Q[i]);
-							} else {
-							}
-						};
-					}
+				if (array_WO[0] == null) {
+					array_WO.push(WO);
+					piecesWO = array_Q[0];
 				} else {
-					alert('WARNING:\nDebes escanear primero el numero de parte.');
-					return false;
-				}
-				
-				//function myFunc(noParte){
-					var cuenta = 0, posicion, valor;
-					for (var i = 0; i < array_pN.length; i++) {
-						if (pN == array_pN[i]) {
-							posicion = i;
-							alert('posicion = ' + posicion);
-							for (var j = 0; j < array_pallet.length; j++) {
-								alert('array_pallet.length = ' + array_pallet.length);
-								if (array_pallet.length == 1) {
-									alert('if (array_pallet.length == 1)');
-									valor = array_pallet[0];
-									alert('valor = ' + valor);
-									alert('cuenta++ = ' + cuenta);
-									cuenta++;
-									alert('cuenta++ = ' + cuenta);
-								} else {
-									alert('array_pallet[j] = ' + array_pallet[j]);
-									if (valor == array_pallet[j]) {
-										alert('if (valor == array_pallet[j])');
-									} else {
-										alert('else cuenta++');
-										alert('valor = ' + valor);
-										cuenta++;
-										alert('valor = ' + valor);
-									}
-								}
-								alert('cuenta for j = ' + cuenta);
-							};
-						} else{
+					array_WO.push(WO);
+					piecesWO = 0;
+					for (var i = 0; i < array_WO.length; i++) {
+						if (WO == array_WO[i]) {
+							piecesWO = parseInt(piecesWO) + parseInt(array_Q[i]);
+						} else {
 						}
 					};
-					//return cuenta;
-				//}
-				
-				//var y = myFunc(pN);
-				//alert('y = ' + y);
+				}
 
 				function buscarNP(noParte){
 					for (var i = 0; i < array_pN.length; i++) {
@@ -188,7 +136,6 @@ $(document).ready(function(){
 
 				var pos = buscarNP(pN), cont = contarNP(pN);
 				var posWO = buscarWO(WO), contWO = contarWO(WO);
-				var contPall = contarPall(pallet);
 
 				//Piezas por WO
 				for (var i = 0; i < array_WO.length; i++) {
