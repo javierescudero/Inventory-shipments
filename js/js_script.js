@@ -171,12 +171,14 @@ $(document).ready(function(){
 				//Contidad por numero de parte
 				for (var i = 0; i < array_pN.length; i++) {
 					if (cont == 1) {
-						$('#format').append('<tr><td class="ui-responsive ui-shadow" id="pallet_'+pos+'">'+array_pallet[pall]+'</td><td class="ui-responsive ui-shadow" id="npall_'+pos+'"></td><td class="ui-responsive ui-shadow" id="parte_'+pos+'">'+array_pN[x]+'</td><td class="ui-responsive ui-shadow" id="boxes_'+pos+'">'+boxesNP+'</td><td class="ui-responsive ui-shadow" id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td class="ui-responsive ui-shadow" id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');
+						$('#format').append('<tr><td class="ui-responsive ui-shadow" id="pallet_'+pos+'">'+array_pallet[pall]+'</td><td class="ui-responsive ui-shadow" id="parte_'+pos+'">'+array_pN[x]+'</td><td class="ui-responsive ui-shadow" id="boxes_'+pos+'">'+boxesNP+'</td><td class="ui-responsive ui-shadow" id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td class="ui-responsive ui-shadow" id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');
+
+						/*$('#format').append('<tr><td class="ui-responsive ui-shadow" id="pallet_'+pos+'">'+array_pallet[pall]+'</td><td class="ui-responsive ui-shadow" id="npall_'+pos+'"></td><td class="ui-responsive ui-shadow" id="parte_'+pos+'">'+array_pN[x]+'</td><td class="ui-responsive ui-shadow" id="boxes_'+pos+'">'+boxesNP+'</td><td class="ui-responsive ui-shadow" id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td class="ui-responsive ui-shadow" id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');*/
 						cont++;
 					} else {
 						if (pN == array_pN[i]) {
 							document.getElementById('pallet_'+pos+'').innerHTML = array_pallet[pall];
-							document.getElementById('npall_'+pos+'').innerHTML = '';
+							//document.getElementById('npall_'+pos+'').innerHTML = '';
 							document.getElementById('parte_'+pos+'').innerHTML = array_pN[x];
 							document.getElementById('boxes_'+pos+'').innerHTML = boxesNP;
 							document.getElementById('cantidad_'+pos+'').innerHTML = parseInt(array_Q[x]);
