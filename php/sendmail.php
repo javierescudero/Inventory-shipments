@@ -81,7 +81,8 @@ if (isset($email)) {
 
   if(mail($para, $titulo, $mensaje, $cabeceras)) {
     echo "<script>alert('Correo Enviado :D');</script>";
-    echo "<script>window.location.href='../index.html'</script>";
+    //echo "<script>window.location.href='./index.html'</script>"; // explorer
+    echo "<script>window.location.href='../index.html'</script>"; // firefox
   } else {
     echo "<script>alert('ERROR: No se envio el correo D:');</script>";
   }

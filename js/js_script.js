@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	
+
 	$('#scan').focus();
 
 	var array_pallet = new Array(), array_Q = new Array(), array_pN = new Array(), array_WO = new Array();
