@@ -7,10 +7,12 @@ $(document).ready(function(){
 	var boxes = 1, boxesNP = 1;
 	var partNumb = 0, piecesWO = 0, piecesPN = 0, piecesPNT = 0;
 	var bT = false, bP = false, bQ = false;
+	var aux;
 
 	$('#form').submit(function() {
 		var c = $('#scan').val();
 		if (c.charAt(0) == 'T' || c.charAt(0) == 't') {
+			aux = 0;
 			bT = true;
 			pallet = c.substring(1);
 			pallet = pallet.toUpperCase();
@@ -31,6 +33,7 @@ $(document).ready(function(){
 			
 		if (c.charAt(0) == 'P' || c.charAt(0) == 'p') {
 			if (bT == true) {
+				aux++;
 				bP = true;
 				pN = c.substring(1);
 				pN = pN.replace(/'/g,' ');
@@ -44,6 +47,7 @@ $(document).ready(function(){
 			}
 		} else if (c.charAt(0) == 'Q' || c.charAt(0) == 'q') {
 			if (bP == true) {
+				aux++;
 				bQ = true;
 				var Q = c.substring(1);
 				$('#scan').val('');
@@ -90,6 +94,10 @@ $(document).ready(function(){
 						}
 					};
 				}
+
+				if (aux > 2) {
+					array_pallet.push(pallet);
+				} else {}
 
 				function buscarNP(noParte){
 					for (var i = 0; i < array_pN.length; i++) {
@@ -154,6 +162,27 @@ $(document).ready(function(){
 				var pos = buscarNP(pN), cont = contarNP(pN);
 				var posWO = buscarWO(WO), contWO = contarWO(WO);
 
+				//Pallets po # de parte
+				var posi, dataj, cantPall = 0;
+				var dataPall = new Array();
+
+				for (var i = 0; i < array_pN.length; i++) {
+					if (pN == array_pN[i]) {
+						posi = i;
+					}
+					for (var j = 0; j < array_pallet.length; j++) {
+						dataj = array_pallet[posi];
+					};
+					dataPall.push(dataj);
+				};
+				for (var z = 0; z < dataPall.length; z++) {
+					if (dataPall[z] == dataPall[z-1]) {
+					}
+					else {
+						cantPall++;
+					}
+				};
+
 				//Piezas por WO
 				for (var i = 0; i < array_WO.length; i++) {
 					if (contWO == 1) {
@@ -171,14 +200,13 @@ $(document).ready(function(){
 				//Contidad por numero de parte
 				for (var i = 0; i < array_pN.length; i++) {
 					if (cont == 1) {
-						$('#format').append('<tr><td class="ui-responsive ui-shadow" id="pallet_'+pos+'">'+array_pallet[pall]+'</td><td class="ui-responsive ui-shadow" id="parte_'+pos+'">'+array_pN[x]+'</td><td class="ui-responsive ui-shadow" id="boxes_'+pos+'">'+boxesNP+'</td><td class="ui-responsive ui-shadow" id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td class="ui-responsive ui-shadow" id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');
-
+						$('#format').append('<tr><td class="ui-responsive ui-shadow" id="npall_'+pos+'">'+cantPall+'</td><td class="ui-responsive ui-shadow" id="parte_'+pos+'">'+array_pN[x]+'</td><td class="ui-responsive ui-shadow" id="boxes_'+pos+'">'+boxesNP+'</td><td class="ui-responsive ui-shadow" id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td class="ui-responsive ui-shadow" id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');
 						/*$('#format').append('<tr><td class="ui-responsive ui-shadow" id="pallet_'+pos+'">'+array_pallet[pall]+'</td><td class="ui-responsive ui-shadow" id="npall_'+pos+'"></td><td class="ui-responsive ui-shadow" id="parte_'+pos+'">'+array_pN[x]+'</td><td class="ui-responsive ui-shadow" id="boxes_'+pos+'">'+boxesNP+'</td><td class="ui-responsive ui-shadow" id="cantidad_'+pos+'">'+parseInt(array_Q[x])+'</td><td class="ui-responsive ui-shadow" id="piezas_'+pos+'">'+parseInt(piecesPN)+'</td></tr>');*/
 						cont++;
 					} else {
 						if (pN == array_pN[i]) {
-							document.getElementById('pallet_'+pos+'').innerHTML = array_pallet[pall];
-							//document.getElementById('npall_'+pos+'').innerHTML = '';
+							//document.getElementById('pallet_'+pos+'').innerHTML = array_pallet[pall];
+							document.getElementById('npall_'+pos+'').innerHTML = cantPall;
 							document.getElementById('parte_'+pos+'').innerHTML = array_pN[x];
 							document.getElementById('boxes_'+pos+'').innerHTML = boxesNP;
 							document.getElementById('cantidad_'+pos+'').innerHTML = parseInt(array_Q[x]);
