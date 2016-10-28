@@ -6,36 +6,45 @@ $(document).ready(function(){
 	var x = 0, pN, pallet, m, pall = array_pallet.length;
 	var boxes = 1, boxesNP = 1;
 	var partNumb = 0, piecesWO = 0, piecesPN = 0, piecesPNT = 0;
-	var bQ = false, bP = false, bW = false;
+	var bT = false, bP = false, bQ = false;
 
 	$('#form').submit(function() {
 		var c = $('#scan').val();
-			if (c.charAt(0) == 'T' || c.charAt(0) == 't') {
-				pallet = c.substring(1);
-				pallet = pallet.toUpperCase();
-				$('#scan').val('');
-				if (array_pallet[0] == null) {
-					array_pallet.push(pallet);
+		if (c.charAt(0) == 'T' || c.charAt(0) == 't') {
+			bT = true;
+			pallet = c.substring(1);
+			pallet = pallet.toUpperCase();
+			$('#scan').val('');
+			if (array_pallet[0] == null) {
+				array_pallet.push(pallet);
+			} else {
+				var index = array_pallet.indexOf(pallet);
+				if (index > -1) {
+					alert('Este numero de pallet ya existe\nIntenta con otro pallet.');
+					return false;
 				} else {
-					var index = array_pallet.indexOf(pallet);
 					array_pallet.push(pallet);
-					if (index > -1) {
-						alert('Este numero de pallet ya existe\nIntenta con otro pallet.');
-						return false;
-					} else {
-						array_pallet.push(pallet);
-						pall++;
-					}
+					pall++;
 				}
 			}
+		}
 			
-			if (c.charAt(0) == 'P' || c.charAt(0) == 'p') {
+		if (c.charAt(0) == 'P' || c.charAt(0) == 'p') {
+			if (bT == true) {
+				bP = true;
 				pN = c.substring(1);
 				pN = pN.replace(/'/g,' ');
 				pN = pN.toUpperCase();
 				array_pN.push(pN);
 				$('#scan').val('');
-			} else if (c.charAt(0) == 'Q' || c.charAt(0) == 'q') {
+			} else {
+				alert('Debes escanear el pallet primero\nVuelve a intentarlo.');
+				$('#scan').val('');
+				return false;
+			}
+		} else if (c.charAt(0) == 'Q' || c.charAt(0) == 'q') {
+			if (bP == true) {
+				bQ = true;
 				var Q = c.substring(1);
 				$('#scan').val('');
 				if (array_Q[0] == null) {
@@ -55,8 +64,16 @@ $(document).ready(function(){
 						piecesPNT = parseInt(piecesPNT) + parseInt(array_Q[i]);
 					};
 				}
-			} 
-			else if (c.charAt(0) == 'W' || c.charAt(0) == 'w') {
+			} else {
+				alert('Debes escanear el numero de parte primero\nVuelve a intentarlo.');
+				$('#scan').val('');
+				return false;
+			}
+		} 
+		else if (c.charAt(0) == 'W' || c.charAt(0) == 'w') {
+			if (bQ == true) {
+				bP = false;
+				bQ = false;
 				var WO = c.substring(1);
 				WO = WO.replace(/0/,'');
 				$('#scan').val('');
@@ -116,7 +133,7 @@ $(document).ready(function(){
 
 				function buscarPall(pall){
 					for (var i = 0; i < array_pallet.length; i++) {
-						if (noParte == array_pallet[i]) {
+						if (pall == array_pallet[i]) {
 							return i;
 						} else{
 						}
@@ -174,7 +191,12 @@ $(document).ready(function(){
 
 				boxes++;
 				x++;
+			} else {
+				alert('Debes escanear la cantidad primero\nVuelve a intentarlo.');
+				$('#scan').val('');
+				return false;
 			}
+		}
 		return false;
 	});
 
@@ -194,12 +216,14 @@ $(document).ready(function(){
 			return false;
 		} if (array_pallet[0] == null || array_Q[0] == null || array_pN[0] == null || array_WO[0] == null) {
 			alert('Datos incompletos..');
-			array_pallet[0].pop();
-			array_Q[0].pop();
-			array_pN[0].pop();
-			array_WO[0].pop();
+			array_pallet.pop();
+			array_Q.pop();
+			array_pN.pop();
+			array_WO.pop();
 			return false;
 		} else {
+
+			alert(bT);
 			
 			//Tabla 1
 			href = href.concat(tab1);
