@@ -10,21 +10,24 @@ $tabla3 = $_GET["tabla3"];
 
 if (isset($email)) {
   if ($email == "javier") {
-    $para = "j.escudero.g@hotmail.com";
-    //$para = "daniel.hernandez@emerson.com";
+    $para = "javier.escudero@emerson.com";
   } elseif ($email == "omar") {
     $para = "omar.guerrero@emerson.com";
-    //$para = "luis.aguilar@emerson.com";
   } elseif ($email == 'sergio') {
     $para = "sergio.morales@emerson.com";
-    //$para = "nerit.paz@emerson.com";
+  } elseif ($email == "luis") {
+    $para = "luis.aguilar@emerson.com";
+  } elseif ($email == 'daniel') {
+    $para = "daniel.hernandez@emerson.com";
+  } elseif ($email == 'nerit') {
+    $para = "nerit.paz@emerson.com";
   }
 
-  $titulo = "PRUEBAS EMAIL - REPORTE DE EMBARQUES - JQuery Mobile";
+  $titulo = "PRUEBAS EMAIL - REPORTE DE EMBARQUES";
 
   $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
   $cabeceras .= 'Content-type: text/html; charset="utf-8"' . "\r\n";
-  $cabeceras .= 'From: '. $para . "\r\n";
+  $cabeceras .= 'From: tablet@embarques.com' . "\r\n";
 
   $mensaje = '
     <html>
@@ -47,9 +50,11 @@ if (isset($email)) {
       <table style="border: 1px solid black;">
         <thead style="background-color: #00cc99; border: 1px solid black;">
           <tr style="border: 1px solid black;">
-            <th style="border: 1px solid black;">Pallets</th>
+            <th style="border: 1px solid black;">Pallet</th>
+            <th style="border: 1px solid black;">No. Parte</th>
             <th style="border: 1px solid black;">Cajas</th>
-            <th style="border: 1px solid black;">Piezas</th>
+            <th style="border: 1px solid black;">Cantidad por Caja</th>
+            <th style="border: 1px solid black;">Cantidad Total</th>
           </tr>
         </thead>
         <tbody style="border: 1px solid black;">';
@@ -61,11 +66,9 @@ if (isset($email)) {
       <table style="border: 1px solid black;">
         <thead style="background-color: #00cc99; border: 1px solid black;">
           <tr style="border: 1px solid black;">
-            <th style="border: 1px solid black;">Pallet</th>
-            <th style="border: 1px solid black;">No. Parte</th>
+            <th style="border: 1px solid black;">Pallets</th>
             <th style="border: 1px solid black;">Cajas</th>
-            <th style="border: 1px solid black;">Cantidad por Caja</th>
-            <th style="border: 1px solid black;">Cantidad Total</th>
+            <th style="border: 1px solid black;">Piezas</th>
           </tr>
         </thead>
         <tbody style="border: 1px solid black;">';

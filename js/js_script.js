@@ -162,7 +162,7 @@ $(document).ready(function(){
 				var pos = buscarNP(pN), cont = contarNP(pN);
 				var posWO = buscarWO(WO), contWO = contarWO(WO);
 
-				//Pallets po # de parte
+				//Pallets por # de parte
 				var posi, dataj, cantPall = 0;
 				var dataPall = new Array();
 
@@ -269,40 +269,37 @@ $(document).ready(function(){
 				href = href.concat(t1);
 			}
 
-			//Tabla 2
+			//Tabla 3
 			href = href.concat(tab2);
+			for (var i = 1; i < rows_dataFormat; i++) {
+				for (var j = 0; j < 5; j++) {
+					if (j==0) {
+						cp = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
+					}
+					if (j==1) {
+						cnp = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
+					}
+					if (j==2) {
+						cc = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
+					}
+					if (j==3) {
+						ccxc = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
+					}
+					if (j==4) {
+						cct = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
+					}
+					t2 = "<tr><td>"+cp+"</td><td>"+cnp+"</td><td>"+cc+"</td><td>"+ccxc+"</td><td>"+cct+"</td></tr>";
+				};
+				href = href.concat(t2);
+			}
+
+			//Tabla 2
+			href = href.concat(tab3);
 			var tPall = document.getElementById('totalPallets').innerHTML;
 			var tBoxes = document.getElementById('totalBoxes').innerHTML;
 			var tPieces = document.getElementById('totalPieces').innerHTML;
-			t2 = "<tr><td>"+tPall+"</td><td>"+tBoxes+"</td><td>"+tPieces+"</td></tr>";
-			href = href.concat(t2);
-
-			//Tabla 3
-			href = href.concat(tab3);
-			for (var i = 1; i < rows_dataFormat; i++) {
-				for (var j = 0; j < 6; j++) {
-					if (j==0) {
-						idpall = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
-					}
-					if (j==1) {
-						cp = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
-					}
-					if (j==2) {
-						cnp = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
-					}
-					if (j==3) {
-						cc = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
-					}
-					if (j==4) {
-						ccxc = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
-					}
-					if (j==5) {
-						cct = document.getElementById("dataFormat").rows[i].cells[j].innerHTML;
-					}
-					t3 = "<tr><td>"+idpall+"</td><td>"+cp+"</td><td>"+cnp+"</td><td>"+cc+"</td><td>"+ccxc+"</td><td>"+cct+"</td></tr>";
-				};
-				href = href.concat(t3);
-			}
+			t3 = "<tr><td>"+tPall+"</td><td>"+tBoxes+"</td><td>"+tPieces+"</td></tr>";
+			href = href.concat(t3);
 
 			document.getElementById('linkSend').href = href;
 		}
